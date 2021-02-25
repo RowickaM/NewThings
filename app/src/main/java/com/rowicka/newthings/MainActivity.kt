@@ -1,11 +1,26 @@
 package com.rowicka.newthings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.rowicka.newthings.activityResult.HomeScreenActivity
+import com.rowicka.newthings.databinding.ActivityMainBinding
+import com.rowicka.newthings.utils.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initListeners()
+    }
+
+    private fun initListeners(){
+        binding.apply {
+            navActivityResult.setOnClickListener { navigateToActivity(HomeScreenActivity::class) }
+        }
     }
 }
