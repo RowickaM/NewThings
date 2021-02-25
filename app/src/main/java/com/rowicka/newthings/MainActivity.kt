@@ -1,9 +1,9 @@
 package com.rowicka.newthings
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.rowicka.newthings.activityResult.ReceiverActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.rowicka.newthings.activityResult.simple.ReceiverActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
 import kotlin.reflect.KClass
 
