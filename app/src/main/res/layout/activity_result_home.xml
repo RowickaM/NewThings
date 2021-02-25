@@ -27,6 +27,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Własne contract" />
+
+        <Button
+            android:id="@+id/navGalleryPermission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Galeria z powoleniem" />
     </LinearLayout>
 
 </ScrollView>
