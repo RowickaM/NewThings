@@ -16,8 +16,11 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:name=".activityResult.HomeScreenActivity" />
     <activity android:name=".activityResult.simple.ReceiverActivity" />
     <activity android:name=".activityResult.simple.SenderActivity" />
+    <activity android:name=".activityResult.ownContract.ReceiverActivity" />
+    <activity android:name=".activityResult.ownContract.SenderActivity" />
   </application>
 
 </manifest>

@@ -1,13 +1,11 @@
 package com.rowicka.newthings
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.rowicka.newthings.activityResult.simple.ReceiverActivity
+import com.rowicka.newthings.activityResult.HomeScreenActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
-import kotlin.reflect.KClass
+import com.rowicka.newthings.utils.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -22,15 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListeners(){
         binding.apply {
-            navActivityResult.setOnClickListener { navigateToActivity(ReceiverActivity::class) }
+            navActivityResult.setOnClickListener { navigateToActivity(HomeScreenActivity::class) }
         }
-    }
-
-    private fun navigateToActivity(activityClass: KClass<*>, vararg flags: Int){
-        val intent = Intent(this, activityClass.java)
-        for (flag in flags) {
-            intent.addFlags(flag)
-        }
-        startActivity(intent)
     }
 }
