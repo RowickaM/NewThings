@@ -24,5 +24,6 @@
     <string name="custom_view_fan_low">1</string>
     <string name="custom_view_fan_medium">2</string>
     <string name="custom_view_fan_high">3</string>
+    <string name="draw_on_canvas_title">Rysowanie na płótnie</string>
 
 </resources>
