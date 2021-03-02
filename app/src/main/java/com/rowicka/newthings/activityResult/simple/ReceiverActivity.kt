@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.rowicka.newthings.R
 import com.rowicka.newthings.activityResult.GET_MESSAGE
 import com.rowicka.newthings.databinding.ActivityReceiverBinding
 import com.rowicka.newthings.utils.error
@@ -46,7 +47,7 @@ class ReceiverActivity : AppCompatActivity() {
     }
 
     private fun getMessageFailure() {
-        binding.receiverMessage.error("Nie udało się pobrać danych")
+        binding.receiverMessage.error(getString(R.string.activity_result_error_message))
     }
 
 

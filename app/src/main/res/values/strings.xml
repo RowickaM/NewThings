@@ -12,6 +12,10 @@
     <string name="activity_result_choose_image">Wybierz obraz z galerii</string>
     <string name="activity_result_text_message">Napisz wiadomość</string>
     <string name="activity_result_send">Wyślij</string>
+    <string name="activity_result_error_message">Nie udało się pobrać danych</string>
+    <string name="activity_result_error_empty_message">Nie przekazano danych</string>
+    <string name="activity_result_error_cancel_message">Zrezygnowano z wysłania wiadomości</string>
+    <string name="activity_result_error_permission">Nie zezwolono na otwarcie galerii</string>
 
     <!-- CustomView -->
     <string name="custom_view_title">Własne widoki</string>

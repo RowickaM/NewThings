@@ -3,6 +3,7 @@ package com.rowicka.newthings.activityResult.ownContract
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.ActivityReceiverBinding
 import com.rowicka.newthings.utils.error
 import com.rowicka.newthings.utils.invisible
@@ -44,10 +45,10 @@ class ReceiverActivity : AppCompatActivity() {
 
     private fun getMessageFailure(failure: Failure) {
         val failureMsg = when (failure) {
-            Failure.NoPassData -> "Nie przekazano danych"
-            Failure.ResultNoOK -> "Aktywnośc została anulowana"
+            Failure.NoPassData -> R.string.activity_result_error_empty_message
+            Failure.ResultNoOK -> R.string.activity_result_error_cancel_message
         }
-        binding.receiverMessage.error(failureMsg)
+        binding.receiverMessage.error(getString(failureMsg))
     }
 
 

@@ -9,6 +9,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.ActivityReceiverImageBinding
 import com.rowicka.newthings.utils.invisible
 import com.rowicka.newthings.utils.show
@@ -71,7 +72,7 @@ class ReceiverImageActivity : AppCompatActivity() {
     }
 
     private fun permissionGalleryDenied() {
-        toast("Nie zezwolono na otwarcie galerii")
+        toast(R.string.activity_result_error_permission)
     }
     //endregion
 
