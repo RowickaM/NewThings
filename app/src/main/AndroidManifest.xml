@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--        activity result-->
         <activity android:name=".activityResult.HomeScreenActivity" />
         <activity android:name=".activityResult.simple.ReceiverActivity" />
         <activity android:name=".activityResult.simple.SenderActivity" />
@@ -25,7 +27,11 @@
         <activity android:name=".activityResult.ownContract.SenderActivity" />
         <activity android:name=".activityResult.permission.ReceiverImageActivity" />
 
+        <!--        custom view-->
         <activity android:name=".customView.CustomViewActivity" />
+
+        <!--        draw on canvas-->
+        <activity android:name=".drawOnCanvas.DrawCanvasActivity" />
     </application>
 
 </manifest>
