@@ -27,6 +27,9 @@
         android:layout_marginTop="@dimen/custom_view_default_margin"
         android:layout_marginStart="@dimen/custom_view_default_margin"
         android:layout_marginEnd="@dimen/custom_view_default_margin"
+        app:fanColor1="@color/secondaryLightColor"
+        app:fanColor2="@color/secondaryColor"
+        app:fanColor3="@color/secondaryDarkColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customViewLabel" />
