@@ -11,7 +11,7 @@
       android:layout_marginStart="16dp"
       android:layout_marginTop="75dp"
       android:layout_marginEnd="16dp"
-      android:text="Odebrana wiadomość"
+      android:text="@string/activity_result_receiver_message"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
       android:layout_marginBottom="8dp"
-      android:text="Pobierz wiadomość"
+      android:text="@string/activity_result_get_message"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />
 
