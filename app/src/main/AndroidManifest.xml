@@ -31,7 +31,8 @@
         <activity android:name=".customView.CustomViewActivity" />
 
         <!--        draw on canvas-->
-        <activity android:name=".drawOnCanvas.DrawCanvasActivity" />
+        <activity android:name=".drawOnCanvas.DrawCanvasActivity"
+            android:theme="@style/FullScreen"/>
     </application>
 
 </manifest>

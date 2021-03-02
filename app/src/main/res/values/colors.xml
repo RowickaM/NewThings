@@ -8,4 +8,7 @@
   <color name="secondaryDarkColor">#1db25e</color>
   <color name="primaryTextColor">#ffffff</color>
   <color name="secondaryTextColor">#000000</color>
+
+  <color name="canvasBackground">#FF7184A4</color>
+  <color name="canvasPaint">#FF60E58C</color>
 </resources>
