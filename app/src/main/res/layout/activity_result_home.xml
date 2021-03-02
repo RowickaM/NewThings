@@ -13,26 +13,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Activity Result"
+            android:text="@string/activity_result_title"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <Button
             android:id="@+id/navSimple"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Podstawowe" />
+            android:text="@string/activity_result_simple" />
 
         <Button
             android:id="@+id/navOwnContract"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Własne contract" />
+            android:text="@string/activity_result_own_contract" />
 
         <Button
             android:id="@+id/navGalleryPermission"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Galeria z powoleniem" />
+            android:text="@string/activity_result_permission" />
     </LinearLayout>
 
 </ScrollView>
