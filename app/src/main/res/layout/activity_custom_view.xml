@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/customViewLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/custom_view_text_view_padding"
+        android:text="@string/custom_view_fan_control"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="@dimen/custom_view_margin_top"
+        android:layout_marginStart="@dimen/custom_view_default_margin"
+        android:layout_marginEnd="@dimen/custom_view_default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.rowicka.newthings.customView.DialView
+        android:id="@+id/customViewDialView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/custom_view_default_margin"
+        android:layout_marginStart="@dimen/custom_view_default_margin"
+        android:layout_marginEnd="@dimen/custom_view_default_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customViewLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,10 +15,10 @@
 
     <!-- CustomView -->
     <string name="custom_view_title">Własne widoki</string>
-    <string name="fan_control">Kontroler grzejnika</string>
-    <string name="fan_off">off</string>
-    <string name="fan_low">1</string>
-    <string name="fan_medium">2</string>
-    <string name="fan_high">3</string>
+    <string name="custom_view_fan_control">Fan Controller</string>
+    <string name="custom_view_fan_off">off</string>
+    <string name="custom_view_fan_low">1</string>
+    <string name="custom_view_fan_medium">2</string>
+    <string name="custom_view_fan_high">3</string>
 
 </resources>

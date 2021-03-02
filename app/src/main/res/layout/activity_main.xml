@@ -7,21 +7,22 @@
   tools:context=".MainActivity">
 
   <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <Button
-      android:id="@+id/navActivityResult"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/activity_result_title" />
+      android:layout_marginTop="16dp"
+      android:orientation="vertical">
 
     <Button
-      android:id="@+id/navCustomView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/custom_view_title" />
+        android:id="@+id/navActivityResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_result_title" />
+
+    <Button
+        android:id="@+id/navCustomView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/custom_view_title" />
   </LinearLayout>
 
 </ScrollView>
