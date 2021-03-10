@@ -10,19 +10,30 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      android:orientation="vertical">
+      android:orientation="vertical"
+      android:showDividers="middle"
+      android:divider="@drawable/empty_divider">
 
-    <Button
+    <TextView
         android:id="@+id/navActivityResult"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activity_result_title" />
 
-    <Button
+    <TextView
+        style="@style/Button"
         android:id="@+id/navCustomView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/custom_view_title" />
+
+    <TextView
+        style="@style/Button"
+        android:id="@+id/navDrawOnCanvas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/draw_on_canvas_title" />
   </LinearLayout>
 
 </ScrollView>
