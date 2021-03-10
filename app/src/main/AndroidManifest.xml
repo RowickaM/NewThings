@@ -33,6 +33,10 @@
         <!--        draw on canvas-->
         <activity android:name=".drawOnCanvas.DrawCanvasActivity"
             android:theme="@style/FullScreen"/>
+
+        <!--        alarm with job scheduler -->
+        <activity android:name=".jobScheduler.AlarmWithJobActivity"/>
+
     </application>
 
 </manifest>
