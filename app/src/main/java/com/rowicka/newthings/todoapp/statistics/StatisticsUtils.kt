@@ -22,7 +22,14 @@ import com.rowicka.newthings.todoapp.data.Task
  * Function that does some trivial computation. Used to showcase unit tests.
  */
 internal fun getActiveAndCompletedStats(tasks: List<Task>?): StatsResult {
-    val totalTasks = tasks!!.size
+    if (tasks.isNullOrEmpty()) {
+        return StatsResult(
+            activeTasksPercent = 0.0f,
+            completedTasksPercent = 0.0f
+        )
+    }
+
+    val totalTasks = tasks.size
     val numberOfActiveTasks = tasks.count { it.isActive }
     return StatsResult(
         activeTasksPercent = 100f * numberOfActiveTasks / tasks.size,
