@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="primaryColor">#445775</color>
-  <color name="primaryLightColor">#7184a4</color>
-  <color name="primaryDarkColor">#182e49</color>
-  <color name="secondaryColor">#60e58c</color>
-  <color name="secondaryLightColor">#96ffbd</color>
-  <color name="secondaryDarkColor">#1db25e</color>
-  <color name="primaryTextColor">#ffffff</color>
-  <color name="secondaryTextColor">#000000</color>
+    <color name="primaryColor">#445775</color>
+    <color name="primaryLightColor">#7184a4</color>
+    <color name="primaryDarkColor">#182e49</color>
+    <color name="secondaryColor">#60e58c</color>
+    <color name="secondaryLightColor">#96ffbd</color>
+    <color name="secondaryDarkColor">#1db25e</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
 
-  <color name="canvasBackground">#FF7184A4</color>
-  <color name="canvasPaint">#FF60E58C</color>
+    <color name="canvasBackground">#FF7184A4</color>
+    <color name="canvasPaint">#FF60E58C</color>
+    <color name="colorGrey">#757575</color>
 </resources>
