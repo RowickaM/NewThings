@@ -21,11 +21,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.rowicka.newthings.App
 import com.rowicka.newthings.R
 import com.rowicka.newthings.todoapp.Event
 import com.rowicka.newthings.todoapp.data.Result.Success
 import com.rowicka.newthings.todoapp.data.Task
-import com.rowicka.newthings.todoapp.data.source.DefaultTasksRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -35,7 +35,7 @@ class AddEditTaskViewModel(application: Application) : AndroidViewModel(applicat
 
     // Note, for testing and architecture purposes, it's bad practice to construct the repository
     // here. We'll show you how to fix this during the codelab
-    private val tasksRepository = DefaultTasksRepository.getRepository(application)
+    private val tasksRepository = (application as App).tasksRepository
 
     // Two-way databinding, exposing MutableLiveData
     val title = MutableLiveData<String>()

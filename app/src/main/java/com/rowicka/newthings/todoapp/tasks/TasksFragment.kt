@@ -25,11 +25,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.rowicka.newthings.App
 import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.FragmentTasksBinding
 import com.rowicka.newthings.todoapp.EventObserver
 import com.rowicka.newthings.todoapp.data.Task
-import com.rowicka.newthings.todoapp.data.source.DefaultTasksRepository
 import com.rowicka.newthings.todoapp.util.setupRefreshLayout
 import com.rowicka.newthings.todoapp.util.setupSnackbar
 import timber.log.Timber
@@ -40,10 +40,7 @@ import timber.log.Timber
 class TasksFragment : Fragment() {
 
     private val viewModel by viewModels<TasksViewModel> {
-        TasksViewModel.TasksViewModelFactory(
-            DefaultTasksRepository
-                .getRepository(requireActivity().application)
-        )
+        TasksViewModel.TasksViewModelFactory((requireContext().applicationContext as App).tasksRepository)
     }
 
     private val args: TasksFragmentArgs by navArgs()

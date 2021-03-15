@@ -18,11 +18,11 @@ package com.rowicka.newthings.todoapp.statistics
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.rowicka.newthings.App
 import com.rowicka.newthings.todoapp.data.Result
 import com.rowicka.newthings.todoapp.data.Result.Error
 import com.rowicka.newthings.todoapp.data.Result.Success
 import com.rowicka.newthings.todoapp.data.Task
-import com.rowicka.newthings.todoapp.data.source.DefaultTasksRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -32,7 +32,7 @@ class StatisticsViewModel(application: Application) : AndroidViewModel(applicati
 
     // Note, for testing and architecture purposes, it's bad practice to construct the repository
     // here. We'll show you how to fix this during the codelab
-    private val tasksRepository = DefaultTasksRepository.getRepository(application)
+    private val tasksRepository = (application as App).tasksRepository
 
     private val tasks: LiveData<Result<List<Task>>> = tasksRepository.observeTasks()
     private val _dataLoading = MutableLiveData<Boolean>(false)
