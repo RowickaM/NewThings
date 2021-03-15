@@ -29,6 +29,7 @@ import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.FragmentTasksBinding
 import com.rowicka.newthings.todoapp.EventObserver
 import com.rowicka.newthings.todoapp.data.Task
+import com.rowicka.newthings.todoapp.data.source.DefaultTasksRepository
 import com.rowicka.newthings.todoapp.util.setupRefreshLayout
 import com.rowicka.newthings.todoapp.util.setupSnackbar
 import timber.log.Timber
@@ -38,7 +39,12 @@ import timber.log.Timber
  */
 class TasksFragment : Fragment() {
 
-    private val viewModel by viewModels<TasksViewModel>()
+    private val viewModel by viewModels<TasksViewModel> {
+        TasksViewModel.TaskDetailViewModelFactory(
+            DefaultTasksRepository
+                .getRepository(requireActivity().application)
+        )
+    }
 
     private val args: TasksFragmentArgs by navArgs()
 
@@ -91,10 +97,10 @@ class TasksFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.openTaskEvent.observe(this, EventObserver {
+        viewModel.openTaskEvent.observe(viewLifecycleOwner, EventObserver {
             openTaskDetails(it)
         })
-        viewModel.newTaskEvent.observe(this, EventObserver {
+        viewModel.newTaskEvent.observe(viewLifecycleOwner, EventObserver {
             navigateToAddNewTask()
         })
     }
