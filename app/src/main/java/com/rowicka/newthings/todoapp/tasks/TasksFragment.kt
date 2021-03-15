@@ -40,7 +40,7 @@ import timber.log.Timber
 class TasksFragment : Fragment() {
 
     private val viewModel by viewModels<TasksViewModel> {
-        TasksViewModel.TaskDetailViewModelFactory(
+        TasksViewModel.TasksViewModelFactory(
             DefaultTasksRepository
                 .getRepository(requireActivity().application)
         )

@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.FragmentTaskdetailBinding
 import com.rowicka.newthings.todoapp.EventObserver
+import com.rowicka.newthings.todoapp.data.source.DefaultTasksRepository
 import com.rowicka.newthings.todoapp.tasks.DELETE_RESULT_OK
 import com.rowicka.newthings.todoapp.util.setupRefreshLayout
 import com.rowicka.newthings.todoapp.util.setupSnackbar
@@ -37,7 +38,12 @@ class TaskDetailFragment : Fragment() {
 
     private val args: TaskDetailFragmentArgs by navArgs()
 
-    private val viewModel by viewModels<TaskDetailViewModel>()
+    private val viewModel by viewModels<TaskDetailViewModel> {
+        TaskDetailViewModel.TaskDetailViewModelFactory(
+            DefaultTasksRepository
+                .getRepository(requireActivity().application)
+        )
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
