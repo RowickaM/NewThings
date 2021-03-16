@@ -3,8 +3,8 @@ package com.rowicka.newthings.todoapp.tasks
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -14,6 +14,9 @@ import com.rowicka.newthings.R
 import com.rowicka.newthings.todoapp.ServiceLocator
 import com.rowicka.newthings.todoapp.data.Task
 import com.rowicka.newthings.todoapp.data.source.TasksRepository
+import com.rowicka.newthings.todoapp.util.DataBindingIdlingResource
+import com.rowicka.newthings.todoapp.util.EspressoIdlingResource
+import com.rowicka.newthings.todoapp.util.monitorActivity
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.not
 import org.junit.After
@@ -27,17 +30,29 @@ class TasksActivityTest {
 
     private lateinit var repository: TasksRepository
 
+    private val dataBindingIdlingResource = DataBindingIdlingResource()
+
     @Before
     fun init() {
         repository = ServiceLocator.provideTaskRepository(getApplicationContext())
         runBlocking {
             repository.deleteAllTasks()
         }
+
+        IdlingRegistry.getInstance().apply {
+            register(EspressoIdlingResource.countingIdlingResource)
+            register(dataBindingIdlingResource)
+        }
     }
 
     @After
     fun reset() {
         ServiceLocator.resetRepository()
+
+        IdlingRegistry.getInstance().apply {
+            unregister(EspressoIdlingResource.countingIdlingResource)
+            unregister(dataBindingIdlingResource)
+        }
     }
 
     @Test
@@ -47,6 +62,7 @@ class TasksActivityTest {
 
         // Start up Tasks screen.
         val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
+        dataBindingIdlingResource.monitorActivity(activityScenario)
 
         // Click on the task on the list and verify that all the data is correct.
         onView(withText("TITLE1")).perform(click())
@@ -65,6 +81,28 @@ class TasksActivityTest {
         // Verify previous task is not displayed.
         onView(withText("TITLE1")).check(doesNotExist())
         // Make sure the activity is closed before resetting the db.
+        activityScenario.close()
+    }
+
+    @Test
+    fun createOneTask_deleteTask(){
+        val activityScenario = ActivityScenario.launch(TasksActivity::class.java)
+        dataBindingIdlingResource.monitorActivity(activityScenario)
+
+        onView(withId(R.id.add_task_fab)).perform(click())
+        onView(withId(R.id.add_task_title_edit_text))
+            .perform(typeText("TITLE1"), closeSoftKeyboard())
+        onView(withId(R.id.add_task_description_edit_text)).perform(typeText("DESCRIPTION"))
+        onView(withId(R.id.save_task_fab)).perform(click())
+
+        onView(withText("TITLE1")).perform(click())
+
+        onView(withId(R.id.menu_delete)).perform(click())
+
+        onView(withId(R.id.menu_filter)).perform(click())
+        onView(withText(R.string.nav_all)).perform(click())
+        onView(withText("TITLE1")).check(doesNotExist())
+
         activityScenario.close()
     }
 }
