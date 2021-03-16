@@ -22,6 +22,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.rowicka.newthings.App
 import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.FragmentStatisticsBinding
 import com.rowicka.newthings.todoapp.util.setupRefreshLayout
@@ -33,7 +34,11 @@ class StatisticsFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentStatisticsBinding
 
-    private val viewModel by viewModels<StatisticsViewModel>()
+    private val viewModel by viewModels<StatisticsViewModel>(){
+        StatisticsViewModel.StatisticsViewModelFactory(
+            (requireContext().applicationContext as App).tasksRepository
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
