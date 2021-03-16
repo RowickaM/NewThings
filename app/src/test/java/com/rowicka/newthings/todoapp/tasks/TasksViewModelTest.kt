@@ -1,6 +1,7 @@
 package com.rowicka.newthings.todoapp.tasks
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.rowicka.newthings.MainCoroutineRule
 import com.rowicka.newthings.R
 import com.rowicka.newthings.getOrAwaitValue
 import com.rowicka.newthings.todoapp.Event
@@ -23,7 +24,9 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class TasksViewModelTest {
 
-    private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -38,7 +41,6 @@ class TasksViewModelTest {
     fun setup() {
         //pobranie contextu z roboletric
 //        viewModel = TasksViewModel(ApplicationProvider.getApplicationContext())
-        Dispatchers.setMain(testDispatcher)
 
         tasksRepository = FakeTestRepository()
         val task2 = Task("Title2", "Description2")
@@ -46,12 +48,6 @@ class TasksViewModelTest {
         tasksRepository.addTask(task1, task2, task3)
 
         viewModel = TasksViewModel(tasksRepository)
-    }
-
-    @After
-    fun tearDownDispatcher(){
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test

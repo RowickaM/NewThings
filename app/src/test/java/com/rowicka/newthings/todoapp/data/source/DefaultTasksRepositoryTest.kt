@@ -1,5 +1,6 @@
 package com.rowicka.newthings.todoapp.data.source
 
+import com.rowicka.newthings.MainCoroutineRule
 import com.rowicka.newthings.todoapp.data.Result
 import com.rowicka.newthings.todoapp.data.Task
 import kotlinx.coroutines.Dispatchers
@@ -7,10 +8,16 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class DefaultTasksRepositoryTest {
+
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
     private val task1 = Task("Title1", "Description1")
     private val task2 = Task("Title2", "Description2")
     private val task3 = Task("Title3", "Description3")
@@ -33,12 +40,12 @@ class DefaultTasksRepositoryTest {
         tasksRepository = DefaultTasksRepository(
             taskRemoteDataSource,
             taskLocalDataSource,
-            Dispatchers.Unconfined
+            Dispatchers.Main
         )
     }
 
     @Test
-    fun getTasks_requestAllTasksFromRemoteDataSource() = runBlockingTest {
+    fun getTasks_requestAllTasksFromRemoteDataSource() = mainCoroutineRule.runBlockingTest {
         val tasks = tasksRepository.getTasks(true) as Result.Success
 
         assertEquals(remoteTasks, tasks.data)
