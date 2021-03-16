@@ -96,9 +96,8 @@ dependencies {
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
     debugImplementation "androidx.fragment:fragment-testing:1.3.0"
-    //Hamcrest library
-    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
 
     // Architecture Components
     //Room
