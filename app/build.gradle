@@ -55,6 +55,11 @@ android {
         exclude "**/attach_hotspot_windows.dll"
         exclude "META-INF/licenses/ASM"
     }
+
+    testOptions.unitTests {
+        includeAndroidResources = true
+        returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -100,6 +105,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
     debugImplementation "androidx.fragment:fragment-testing:1.3.1"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    implementation "androidx.test.espresso:espresso-idling-resource:3.3.0"
 
     // Architecture Components
     //Room
