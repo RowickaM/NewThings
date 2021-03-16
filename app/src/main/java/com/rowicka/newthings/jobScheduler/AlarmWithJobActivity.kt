@@ -1,9 +1,16 @@
 package com.rowicka.newthings.jobScheduler
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import com.rowicka.newthings.R
+import androidx.appcompat.app.AppCompatActivity
 import com.rowicka.newthings.databinding.ActivityAlarmWithJobBinding
+import java.util.*
+
+const val ALARM_REQUEST_CODE = 100
 
 class AlarmWithJobActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAlarmWithJobBinding
@@ -25,12 +32,19 @@ class AlarmWithJobActivity : AppCompatActivity() {
         }
     }
 
-    private fun startAlarm(){
+    private fun startAlarm() {
         toggleButtonEnable()
+//        if (TimeHelper.isDay()) {
+            startAlarmAfterTime(0)
+//        } else {
+//            startAlarmAfterTime(5)
+//        }
     }
 
-    private fun stopAlarm(){
+    private fun stopAlarm() {
         toggleButtonEnable()
+
+        stopAllAlarms()
     }
 
     private fun prepareButtons() {
@@ -40,7 +54,7 @@ class AlarmWithJobActivity : AppCompatActivity() {
         }
     }
 
-    private fun toggleButtonEnable(){
+    private fun toggleButtonEnable() {
         binding.apply {
             val alarmStartButtonEnabled = alarmStart.isEnabled
             alarmStart.isEnabled = !alarmStartButtonEnabled

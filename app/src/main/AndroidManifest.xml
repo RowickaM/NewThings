@@ -36,7 +36,9 @@
 
         <!--        alarm with job scheduler -->
         <activity android:name=".jobScheduler.AlarmWithJobActivity"/>
-
+        <service android:name=".jobScheduler.LogJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <receiver android:name=".jobScheduler.AlarmBroadCastReceiver" />
     </application>
 
 </manifest>
