@@ -1,6 +1,8 @@
 package com.rowicka.newthings.todoapp.taskdetail
 
 import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.rowicka.newthings.R
@@ -29,7 +31,7 @@ class TaskDetailFragmentTest {
     }
 
     @After
-    fun cleanupDb() {
+    fun cleanupDb() = runBlockingTest {
         ServiceLocator.resetRepository()
     }
 
@@ -41,7 +43,5 @@ class TaskDetailFragmentTest {
 
         val bundle = TaskDetailFragmentArgs(activeTask.id).toBundle()
         launchFragmentInContainer<TaskDetailFragment>(bundle, R.style.AppTheme)
-
-
     }
 }
