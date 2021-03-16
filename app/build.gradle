@@ -94,6 +94,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     testImplementation 'androidx.test.ext:junit:1.1.2'
 
+    // mockito
+    androidTestImplementation "org.mockito:mockito-core:2.19.0"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:2.28.1"
+
     // AndroidX Test - Instrumented testing
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
