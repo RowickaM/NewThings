@@ -34,6 +34,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/draw_on_canvas_title" />
+    <TextView
+        style="@style/Button"
+        android:id="@+id/navContacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contacts_title" />
   </LinearLayout>
 
 </ScrollView>

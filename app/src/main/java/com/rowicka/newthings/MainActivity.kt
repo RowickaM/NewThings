@@ -2,6 +2,8 @@ package com.rowicka.newthings
 
 import android.os.Bundle
 import com.rowicka.newthings.activityResult.HomeScreenActivity
+import com.rowicka.newthings.activityResult.permission.ReceiverImageActivity
+import com.rowicka.newthings.contacts.ContactsActivity
 import com.rowicka.newthings.customView.CustomViewActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
 import com.rowicka.newthings.drawOnCanvas.DrawCanvasActivity
@@ -25,6 +27,7 @@ class MainActivity : BaseActivity() {
             navActivityResult.setOnClickListener { navigateToActivity(HomeScreenActivity::class) }
             navCustomView.setOnClickListener { navigateToActivity(CustomViewActivity::class) }
             navDrawOnCanvas.setOnClickListener { navigateToActivity(DrawCanvasActivity::class) }
+            navContacts.setOnClickListener { navigateToActivity(ContactsActivity::class) }
         }
     }
 }
