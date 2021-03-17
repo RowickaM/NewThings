@@ -30,6 +30,7 @@
     <string name="canvasContentDescription">Mini Paint is a simple line drawing app.
         Drag your fingers to draw. Rotate the phone to clear.</string>
     <string name="contacts_title">Kontakty</string>
+    <string name="contacts_need_permission">Potrzebne jest uprawienie do odczytania kontaktów</string>
 
 
 </resources>
