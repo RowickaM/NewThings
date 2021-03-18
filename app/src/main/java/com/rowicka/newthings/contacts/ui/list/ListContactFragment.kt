@@ -12,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.rowicka.newthings.R
 import com.rowicka.newthings.contacts.ContactsAdapter
 import com.rowicka.newthings.contacts.ContactsViewModel
+import com.rowicka.newthings.contacts.model.Navigation
 import com.rowicka.newthings.databinding.FragmentListContactBinding
+import com.rowicka.newthings.utils.observeEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -46,14 +48,16 @@ class ListContactFragment : Fragment() {
         binding.contactsRecycleView.adapter = adapter
     }
 
-    private fun initObservers(){
-        viewModel.contactsList.observe(viewLifecycleOwner){
+    private fun initObservers() {
+        viewModel.contactsList.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }
 
-        lifecycleScope.launch {
-            viewModel.currentVisit.collect {
-                showContactDetails()
+        viewModel.apply {
+            observeEvent(navigation){
+                if(it == Navigation.DETAIL){
+                    showContactDetails()
+                }
             }
         }
     }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_contacts"
-    app:startDestination="@id/listContactFragment">
+    app:startDestination="@id/registerCallFragment">
 
 
     <fragment
@@ -14,10 +14,18 @@
         <action
             android:id="@+id/action_listContactFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_listContactFragment_to_registerCallFragment"
+            app:destination="@id/registerCallFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.rowicka.newthings.contacts.ui.details.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail_contact"/>
+    <fragment
+        android:id="@+id/registerCallFragment"
+        android:name="com.rowicka.newthings.contacts.ui.register.RegisterCallFragment"
+        android:label="RegisterCallFragment"
+        tools:layout="@layout/fragment_register_call"/>
 </navigation>

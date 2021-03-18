@@ -11,6 +11,10 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import com.rowicka.newthings.contacts.model.Event
 
 fun View.show() {
     this.visibility = View.VISIBLE
@@ -74,4 +78,9 @@ fun ComponentActivity.checkPermission(
 }
 
 fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+inline fun <T : Any, L : LiveData<Event<T>>> LifecycleOwner.observeEvent(liveData: L, crossinline body: (T?) -> Unit) {
+    liveData.observe(this, Observer { body(it.getContentIfNotHandled()) })
+}
