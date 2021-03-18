@@ -9,18 +9,21 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.database.getStringOrNull
+import androidx.lifecycle.lifecycleScope
 import com.rowicka.newthings.R
 import com.rowicka.newthings.contacts.model.ContactsInfo
 import com.rowicka.newthings.databinding.ActivityContactsBinding
 import com.rowicka.newthings.utils.checkPermission
 import com.rowicka.newthings.utils.toast
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class ContactsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityContactsBinding
     private val viewModel by viewModels<ContactsViewModel>()
-    private lateinit var adapter: ContactsAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,21 +31,9 @@ class ContactsActivity : AppCompatActivity() {
         binding = ActivityContactsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initList()
-        initObserver()
         requestPermission()
     }
 
-    private fun initList(){
-        adapter = ContactsAdapter()
-        binding.contactsRecycleView.adapter = adapter
-    }
-
-    private fun initObserver(){
-        viewModel.contactsList.observe(this){
-            adapter.setList(it)
-        }
-    }
 
     private fun requestPermission() {
         checkPermission(
@@ -73,8 +64,6 @@ class ContactsActivity : AppCompatActivity() {
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                     val photoUri =
                         cursor.getStringOrNull(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_URI))
-
-
                     
                     queryPhoneForContact(contactId) { phoneCursor ->
                         if (phoneCursor.moveToNext()) {

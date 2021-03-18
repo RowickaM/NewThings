@@ -14,46 +14,56 @@ import com.rowicka.newthings.utils.toPx
 
 class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
     private var contacts: List<ContactsInfo> = arrayListOf()
+    private var onClickListener: (Int) -> Unit = {}
 
-    fun setList(newList: List<ContactsInfo>){
+    fun setList(newList: List<ContactsInfo>) {
         contacts = newList
         notifyDataSetChanged()
     }
 
+    fun setClickListener(listener: (Int) -> Unit){
+        onClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
         val binding = ItemContactBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-       return ContactsViewHolder(binding)
+        return ContactsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
-        holder.bind(contacts[position])
+        holder.bind(contacts[position], position, onClickListener)
     }
 
     override fun getItemCount(): Int = contacts.size
 
-    class ContactsViewHolder(itemView: ItemContactBinding) : RecyclerView.ViewHolder(itemView.root) {
+    class ContactsViewHolder(itemView: ItemContactBinding) :
+        RecyclerView.ViewHolder(itemView.root) {
         private val generator = ColorGenerator.DEFAULT
 
-        val image = itemView.itemContactImage
-        val name = itemView.itemContactName
+        private val image = itemView.itemContactImage
+        private val name = itemView.itemContactName
 
 
-        fun bind(item: ContactsInfo) {
+        fun bind(item: ContactsInfo, position: Int, listener: (Int) -> Unit) {
+            itemView.setOnClickListener {
+                listener.invoke(position)
+            }
+
             name.text = item.name
 
             item.photoUri?.let { setImageFromUri(it) }
                 ?: setInitials(item.name)
         }
 
-        private fun setImageFromUri(uri: Uri){
+        private fun setImageFromUri(uri: Uri) {
             image.setImageURI(uri)
         }
 
-        private fun setInitials(name: String){
+        private fun setInitials(name: String) {
             val nameList = name.split(" ").map {
-                return@map if (it[0].isLetter()){
+                return@map if (it[0].isLetter()) {
                     it[0]
-                }else{
+                } else {
                     ""
                 }
             }
