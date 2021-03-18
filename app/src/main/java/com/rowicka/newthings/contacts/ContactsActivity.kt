@@ -1,23 +1,26 @@
 package com.rowicka.newthings.contacts
 
 import android.Manifest
-import android.content.pm.PackageManager
-import android.os.Build
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.database.getStringOrNull
 import com.rowicka.newthings.R
+import com.rowicka.newthings.contacts.model.ContactsInfo
 import com.rowicka.newthings.databinding.ActivityContactsBinding
+import com.rowicka.newthings.utils.checkPermission
 import com.rowicka.newthings.utils.toast
 
 
 class ContactsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityContactsBinding
+    private val viewModel by viewModels<ContactsViewModel>()
+    private lateinit var adapter: ContactsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +28,20 @@ class ContactsActivity : AppCompatActivity() {
         binding = ActivityContactsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initList()
+        initObserver()
         requestPermission()
+    }
+
+    private fun initList(){
+        adapter = ContactsAdapter()
+        binding.contactsRecycleView.adapter = adapter
+    }
+
+    private fun initObserver(){
+        viewModel.contactsList.observe(this){
+            adapter.setList(it)
+        }
     }
 
     private fun requestPermission() {
@@ -43,9 +59,46 @@ class ContactsActivity : AppCompatActivity() {
     }
 
     private fun getContacts() {
-
         val contactsInfoList = arrayListOf<ContactsInfo>()
 
+        queryAllContacts { cursor ->
+            while (cursor.moveToNext()) {
+
+                val hasPhoneNumber =
+                    Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)))
+                if (hasPhoneNumber > 0) {
+                    val contactId =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+                    val displayName =
+                        cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                    val photoUri =
+                        cursor.getStringOrNull(cursor.getColumnIndex(ContactsContract.Contacts.PHOTO_URI))
+
+
+                    
+                    queryPhoneForContact(contactId) { phoneCursor ->
+                        if (phoneCursor.moveToNext()) {
+                            val phoneNumber =
+                                phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+
+                            contactsInfoList.add(
+                                ContactsInfo(
+                                    contactId,
+                                    displayName,
+                                    phoneNumber,
+                                    photoUri?.let{ Uri.parse(photoUri) }
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        viewModel.updateList(contactsInfoList)
+    }
+
+    private fun queryAllContacts(actionOnCursor: (Cursor) -> Unit) {
         contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
             null,
@@ -53,87 +106,19 @@ class ContactsActivity : AppCompatActivity() {
             null,
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
         ).use {
-            it?.let { cursor ->
-
-                Log.d("MRMRMR", "ContactsActivity.kt: $cursor")
-                while (it.moveToNext()) {
-                    val hasPhoneNumber =
-                        Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)))
-                    if (hasPhoneNumber > 0) {
-
-                        val contactsInfo = ContactsInfo()
-                        val contactId =
-                            cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                        val displayName =
-                            cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-
-                        contactsInfo.id = contactId
-                        contactsInfo.name = displayName
-
-                        contentResolver.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                            arrayOf(contactId),
-                            null
-                        ).use {
-                            it?.let { phoneCursor ->
-                                if (phoneCursor.moveToNext()) {
-                                    val phoneNumber =
-                                        phoneCursor.getString(phoneCursor.getColumnIndex(
-                                            ContactsContract.CommonDataKinds.Phone.NUMBER))
-
-                                    contactsInfo.phone = phoneNumber
-                                }
-
-                                phoneCursor.close()
-
-                                contactsInfoList.add(contactsInfo)
-                            }
-                        }
-
-
-                    }
-                }
-            }
-
-        }
-
-
-        Log.d("MRMRMR", "ContactsActivity.kt: $contactsInfoList")
-    }
-}
-
-
-data class ContactsInfo(var id: String = "", var name: String = "", var phone: String = "")
-
-fun ComponentActivity.checkPermission(
-    permission: String,
-    onGranted: () -> Unit = {},
-    onDenied: () -> Unit = {},
-    onNeverAskAgain: () -> Unit = {},
-) {
-    val permissionRequest = activityResultRegistry.register(
-        "REQUEST PERMISSION $permission",
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            onGranted()
-        } else {
-            onDenied()
+            it?.let { cursor -> actionOnCursor.invoke(cursor) }
         }
     }
 
-    val permissionState = ContextCompat.checkSelfPermission(this, permission)
-    val showRationale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        this.shouldShowRequestPermissionRationale(permission)
-    } else {
-        true
-    }
-
-    when {
-        permissionState == PackageManager.PERMISSION_GRANTED -> onGranted.invoke()
-        !showRationale -> onNeverAskAgain.invoke()
-        else -> permissionRequest.launch(permission)
+    private fun queryPhoneForContact(contactId: String, actionOnCursor: (Cursor) -> Unit) {
+        contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+            arrayOf(contactId),
+            null
+        ).use {
+            it?.let { phoneCursor -> actionOnCursor.invoke((phoneCursor)) }
+        }
     }
 }
