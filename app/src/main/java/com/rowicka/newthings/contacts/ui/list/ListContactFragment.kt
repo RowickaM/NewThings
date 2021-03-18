@@ -36,7 +36,14 @@ class ListContactFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initList()
+        initListeners()
         initObservers()
+    }
+
+    private fun initListeners() {
+        binding.apply {
+            contactsShowRegisterButton.setOnClickListener { showCallRegister() }
+        }
     }
 
     private fun initList(){
@@ -52,16 +59,11 @@ class ListContactFragment : Fragment() {
         viewModel.contactsList.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }
-
-        viewModel.apply {
-            observeEvent(navigation){
-                if(it == Navigation.DETAIL){
-                    showContactDetails()
-                }
-            }
-        }
     }
 
+    private fun showCallRegister(){
+        findNavController().navigate(R.id.action_listContactFragment_to_registerCallFragment)
+    }
 
     private fun showContactDetails(){
         findNavController().navigate(R.id.action_listContactFragment_to_detailFragment)

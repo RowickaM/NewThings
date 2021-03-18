@@ -34,28 +34,8 @@ class ContactsActivity : AppCompatActivity() {
         binding = ActivityContactsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.contactsShowRegisterButton.setOnClickListener {
-            findNavController(R.id.fragmentContactContainer)
-                .navigate(R.id.action_listContactFragment_to_registerCallFragment)
-            viewModel.moveToRegister()
-        }
 
         requestPermission()
-        initObservable()
-    }
-
-    private fun initObservable() {
-        viewModel.apply {
-            observeEvent(navigation) {
-                Log.d("MRMRMR", "ContactsActivity.kt: observe $it")
-                when (it) {
-                    Navigation.REGISTER -> findNavController(R.id.fragmentContactContainer)
-                        .navigate(R.id.action_listContactFragment_to_registerCallFragment)
-                    Navigation.DETAIL -> findNavController(R.id.fragmentContactContainer)
-                        .navigate(R.id.action_listContactFragment_to_detailFragment)
-                }
-            }
-        }
     }
 
     private fun requestPermission() {
