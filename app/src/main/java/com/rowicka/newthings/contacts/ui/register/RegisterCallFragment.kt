@@ -51,7 +51,6 @@ class RegisterCallFragment : Fragment() {
                     val callDayTime = Date(managedCursor.getString(dateColumn).toLong())
                     val callDuration = managedCursor.getString(durationColumn)
 
-
                     val callType = when (managedCursor.getString(typeColumn).toInt()) {
                         CallLog.Calls.OUTGOING_TYPE -> "OUTGOING"
                         CallLog.Calls.INCOMING_TYPE -> "INCOMING"
