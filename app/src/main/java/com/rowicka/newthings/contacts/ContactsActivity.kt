@@ -2,24 +2,18 @@ package com.rowicka.newthings.contacts
 
 import android.Manifest
 import android.database.Cursor
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.database.getStringOrNull
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import com.rowicka.newthings.R
 import com.rowicka.newthings.contacts.model.ContactsInfo
-import com.rowicka.newthings.contacts.model.Navigation
 import com.rowicka.newthings.databinding.ActivityContactsBinding
 import com.rowicka.newthings.utils.checkPermission
-import com.rowicka.newthings.utils.observeEvent
 import com.rowicka.newthings.utils.toast
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 
 class ContactsActivity : AppCompatActivity() {
@@ -113,4 +107,41 @@ class ContactsActivity : AppCompatActivity() {
             it?.let { phoneCursor -> actionOnCursor.invoke((phoneCursor)) }
         }
     }
+}
+
+fun String.phoneToColor(): Int {
+
+    var phone = when {
+        this.length > 7 -> this.substring(1, 8)
+        this.length == 7 -> this.substring(1, 7) + "77"
+        this.length == 6 -> this.substring(1, 6) + "666"
+        else -> "9999999"
+    }
+
+    if (phone.startsWith("0")) {
+        phone = phone.replaceFirst("0", "1")
+    }
+
+    phone = phone
+        .replace(" ", "0")
+        .replace("#", "0")
+        .replace("*", "0")
+
+    var color = "#${Integer.toString(phone.toInt(), 16)}"
+
+    if (color.length == 7) {
+        return Color.parseColor(color)
+    }
+
+    while (color.length != 7) {
+        color += "0"
+    }
+
+    return Color.parseColor(color)
+}
+
+fun String.getInitialsFromName(): String {
+    return this.split(" ")
+        .map { it[0] }
+        .joinToString("")
 }

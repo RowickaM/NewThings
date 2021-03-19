@@ -1,22 +1,16 @@
 package com.rowicka.newthings.contacts.ui.list
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.rowicka.newthings.R
 import com.rowicka.newthings.contacts.ContactsAdapter
 import com.rowicka.newthings.contacts.ContactsViewModel
-import com.rowicka.newthings.contacts.model.Navigation
 import com.rowicka.newthings.databinding.FragmentListContactBinding
-import com.rowicka.newthings.utils.observeEvent
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class ListContactFragment : Fragment() {
 
@@ -50,6 +44,7 @@ class ListContactFragment : Fragment() {
         adapter = ContactsAdapter().apply {
             setClickListener{
                 viewModel.onContactClicked(it)
+                showContactDetails()
             }
         }
         binding.contactsRecycleView.adapter = adapter
