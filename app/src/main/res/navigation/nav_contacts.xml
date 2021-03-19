@@ -10,7 +10,7 @@
         android:id="@+id/listContactFragment"
         android:name="com.rowicka.newthings.contacts.ui.list.ListContactFragment"
         android:label="list_contact_fragment"
-        tools:layout="@layout/fragment_list_contact" >
+        tools:layout="@layout/fragment_contacts">
         <action
             android:id="@+id/action_listContactFragment_to_detailFragment"
             app:destination="@id/detailFragment" />

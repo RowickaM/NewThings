@@ -1,4 +1,4 @@
-package com.rowicka.newthings.contacts
+package com.rowicka.newthings.contacts.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -6,20 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amulyakhare.textdrawable.TextDrawable
 import com.rowicka.newthings.contacts.model.ContactsInfo
+import com.rowicka.newthings.contacts.phoneToColor
 import com.rowicka.newthings.databinding.ItemContactBinding
 import com.rowicka.newthings.utils.toPx
 
 
 class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>() {
     private var contacts: List<ContactsInfo> = arrayListOf()
-    private var onClickListener: (Int) -> Unit = {}
+    private var onClickListener: OnRecyclerListener? = null
 
     fun setList(newList: List<ContactsInfo>) {
         contacts = newList
         notifyDataSetChanged()
     }
 
-    fun setClickListener(listener: (Int) -> Unit) {
+    fun setClickListener(listener: OnRecyclerListener) {
         onClickListener = listener
     }
 
@@ -29,7 +30,7 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>
     }
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
-        holder.bind(contacts[position], position, onClickListener)
+        holder.bind(contacts[position], onClickListener)
     }
 
     override fun getItemCount(): Int = contacts.size
@@ -40,9 +41,9 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder>
         private val name = itemView.itemContactName
 
 
-        fun bind(item: ContactsInfo, position: Int, listener: (Int) -> Unit) {
+        fun bind(item: ContactsInfo, onClickListener: OnRecyclerListener?) {
             itemView.setOnClickListener {
-                listener.invoke(position)
+                onClickListener?.onClick(adapterPosition)
             }
 
             name.text = item.name

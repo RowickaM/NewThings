@@ -31,7 +31,10 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setImage()
+        if (!mViewModel.contactModel.name.isEmpty()) {
+            setImage()
+        }
+
     }
 
     private fun setImage() {

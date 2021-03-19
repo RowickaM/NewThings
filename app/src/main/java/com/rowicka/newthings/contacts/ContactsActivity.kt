@@ -21,13 +21,15 @@ class ContactsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContactsBinding
     private val viewModel by viewModels<ContactsViewModel>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityContactsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
 
+    override fun onResume() {
+        super.onResume()
 
         requestPermission()
     }
@@ -141,7 +143,11 @@ fun String.phoneToColor(): Int {
 }
 
 fun String.getInitialsFromName(): String {
-    return this.split(" ")
-        .map { it[0] }
-        .joinToString("")
+    val tabName = this.split(" ")
+    if (tabName.isNotEmpty()) {
+        return tabName.map { it[0] }
+            .joinToString("")
+    }
+
+    return ""
 }
