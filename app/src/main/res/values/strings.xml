@@ -29,6 +29,6 @@
     <!-- Draw on Canvas -->
     <string name="canvasContentDescription">Mini Paint is a simple line drawing app.
         Drag your fingers to draw. Rotate the phone to clear.</string>
-
+    <string name="recycle_view_section_title">RecyclerView z sekcjami</string>
 
 </resources>

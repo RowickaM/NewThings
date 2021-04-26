@@ -28,12 +28,19 @@
         android:layout_height="wrap_content"
         android:text="@string/custom_view_title" />
 
-    <TextView
-        style="@style/Button"
-        android:id="@+id/navDrawOnCanvas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/draw_on_canvas_title" />
+      <TextView
+          style="@style/Button"
+          android:id="@+id/navDrawOnCanvas"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/draw_on_canvas_title" />
+
+      <TextView
+          android:id="@+id/recyclerViewSection"
+          style="@style/Button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/recycle_view_section_title" />
   </LinearLayout>
 
 </ScrollView>

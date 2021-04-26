@@ -5,6 +5,7 @@ import com.rowicka.newthings.activityResult.HomeScreenActivity
 import com.rowicka.newthings.customView.CustomViewActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
 import com.rowicka.newthings.drawOnCanvas.DrawCanvasActivity
+import com.rowicka.newthings.recyclerViewSection.RecyclerViewSectionActivity
 import com.rowicka.newthings.utils.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -25,6 +26,7 @@ class MainActivity : BaseActivity() {
             navActivityResult.setOnClickListener { navigateToActivity(HomeScreenActivity::class) }
             navCustomView.setOnClickListener { navigateToActivity(CustomViewActivity::class) }
             navDrawOnCanvas.setOnClickListener { navigateToActivity(DrawCanvasActivity::class) }
+            recyclerViewSection.setOnClickListener { navigateToActivity(RecyclerViewSectionActivity::class) }
         }
     }
 }

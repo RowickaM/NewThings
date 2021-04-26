@@ -12,27 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewThings">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
-
-        <!--        activity result-->
         <activity android:name=".activityResult.HomeScreenActivity" />
         <activity android:name=".activityResult.simple.ReceiverActivity" />
         <activity android:name=".activityResult.simple.SenderActivity" />
         <activity android:name=".activityResult.ownContract.ReceiverActivity" />
         <activity android:name=".activityResult.ownContract.SenderActivity" />
         <activity android:name=".activityResult.permission.ReceiverImageActivity" />
-
-        <!--        custom view-->
         <activity android:name=".customView.CustomViewActivity" />
+        <activity
+            android:name=".drawOnCanvas.DrawCanvasActivity"
+            android:theme="@style/FullScreen" />
 
-        <!--        draw on canvas-->
-        <activity android:name=".drawOnCanvas.DrawCanvasActivity"
-            android:theme="@style/FullScreen"/>
+        <activity android:name=".recyclerViewSection.RecyclerViewSectionActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
