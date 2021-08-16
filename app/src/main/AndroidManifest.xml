@@ -33,6 +33,10 @@
         <!--        draw on canvas-->
         <activity android:name=".drawOnCanvas.DrawCanvasActivity"
             android:theme="@style/FullScreen"/>
+
+        <!--        clipping canvas objects-->
+        <activity android:name=".clippingCanvasObjects.ClippingCanvasObjects"
+            android:theme="@style/FullScreen"/>
     </application>
 
 </manifest>

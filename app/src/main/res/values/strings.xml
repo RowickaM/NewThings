@@ -12,7 +12,7 @@
     <string name="activity_result_choose_image">Wybierz obraz z galerii</string>
     <string name="activity_result_text_message">Napisz wiadomość</string>
     <string name="activity_result_send">Wyślij</string>
-    <string name="activity_result_error_message">Nie udało się pobrać danych</string>
+    <string name="activity_result_error_message">Nie udało się pobrać danych</string>
     <string name="activity_result_error_empty_message">Nie przekazano danych</string>
     <string name="activity_result_error_cancel_message">Zrezygnowano z wysłania wiadomości</string>
     <string name="activity_result_error_permission">Nie zezwolono na otwarcie galerii</string>
@@ -30,5 +30,9 @@
     <string name="canvasContentDescription">Mini Paint is a simple line drawing app.
         Drag your fingers to draw. Rotate the phone to clear.</string>
 
-
+    <!-- Clipping Canvas Objects -->
+    <string name="clipping_canvas_objects_title">Przycinanie obiektów na płótnie </string>
+    <string name="clipping">Clipping</string>
+    <string name="translated">translated text</string>
+    <string name="skewed">"Skewed and "</string>
 </resources>
