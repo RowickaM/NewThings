@@ -32,4 +32,7 @@
 
     <!-- Clipping Canvas Objects -->
     <string name="clipping_canvas_objects_title">Przycinanie obiektów na płótnie </string>
+    <string name="clipping">Clipping</string>
+    <string name="translated">translated text</string>
+    <string name="skewed">"Skewed and "</string>
 </resources>
