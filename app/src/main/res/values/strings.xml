@@ -35,4 +35,12 @@
     <string name="clipping">Clipping</string>
     <string name="translated">translated text</string>
     <string name="skewed">"Skewed and "</string>
+
+    <!-- Property Animations -->
+    <string name="property_animations_title">Animacje</string>
+    <string name="rotate">Rotate</string>
+    <string name="translate">Translate</string>
+    <string name="scale">Scale</string>
+    <string name="fade">Fade</string>
+    <string name="shower">Shower</string>
 </resources>
