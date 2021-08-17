@@ -1,15 +1,17 @@
 package com.rowicka.newthings.propertyAnimations
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
+import android.animation.*
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.ActivityPropertyAnimationsBinding
 
 class PropertyAnimationsActivity : AppCompatActivity() {
@@ -108,6 +110,22 @@ class PropertyAnimationsActivity : AppCompatActivity() {
     }
 
     private fun shower() {
+        val container = binding.star.parent as ViewGroup
+        var startWidth = binding.star.width.toFloat()
+        var startHeight = binding.star.height.toFloat()
+
+        val newsStar = createStar()
+
+        startWidth *= newsStar.scaleX
+        startHeight *= newsStar.scaleY
+
+        newsStar.translationX = Math.random().toFloat() * container.width - startWidth / 2
+
+        newsStar.fallStarAnimation(
+            container,
+            startHeight,
+            container.height.toFloat()
+        )
     }
 
     private fun Animator.disableButton(button: Button) {
@@ -120,5 +138,57 @@ class PropertyAnimationsActivity : AppCompatActivity() {
                 button.isEnabled = true
             }
         })
+    }
+
+    private fun createStar(): AppCompatImageView {
+        val container = binding.star.parent as ViewGroup
+
+        val star = AppCompatImageView(this)
+        star.setImageResource(R.drawable.ic_star)
+        star.layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        container.addView(star)
+
+        star.scaleX = Math.random().toFloat() * 1.5f + .1f
+        star.scaleY = star.scaleX
+
+        return star
+    }
+
+    private fun AppCompatImageView.fallStarAnimation(
+        container: ViewGroup,
+        startHeight: Float,
+        containerHeight: Float,
+    ) {
+        val fallAnimation = ObjectAnimator.ofFloat(
+            this,
+            View.TRANSLATION_Y,
+            -startHeight,
+            containerHeight + startHeight
+        ).apply {
+            interpolator = AccelerateInterpolator(1f)
+        }
+
+        val rotation = ObjectAnimator.ofFloat(
+            this,
+            View.ROTATION,
+            (Math.random() * 1080).toFloat()
+        ).apply {
+            interpolator = LinearInterpolator()
+        }
+
+        val set = AnimatorSet().apply {
+            playTogether(fallAnimation, rotation)
+            duration = (Math.random() * 1500 + 500).toLong()
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    container.removeView(this@fallStarAnimation)
+                }
+            })
+        }
+        set.start()
     }
 }
