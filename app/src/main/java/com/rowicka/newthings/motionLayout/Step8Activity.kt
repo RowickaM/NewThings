@@ -17,6 +17,8 @@ package com.rowicka.newthings.motionLayout
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
+import com.google.android.material.appbar.AppBarLayout
 import com.rowicka.newthings.R
 
 class Step8Activity : AppCompatActivity() {
@@ -29,7 +31,14 @@ class Step8Activity : AppCompatActivity() {
     }
 
     private fun coordinateMotion() {
-        // TODO: set progress of MotionLayout based on an AppBarLayout.OnOffsetChangedListener
+        val appBarLayout = findViewById<AppBarLayout>(R.id.appbar_layout)
+        val motionLayout = findViewById<MotionLayout>(R.id.motion_layout)
 
+        val listener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val seekPosition = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
+            motionLayout.progress = seekPosition
+        }
+
+        appBarLayout.addOnOffsetChangedListener(listener)
     }
 }
