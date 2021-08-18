@@ -48,6 +48,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/property_animations_title" />
+
+    <TextView
+        android:id="@+id/navMotionLayout"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/motion_layout_title" />
   </LinearLayout>
 
 </ScrollView>

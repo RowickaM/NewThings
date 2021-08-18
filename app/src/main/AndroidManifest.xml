@@ -17,32 +17,108 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- activity result -->
+        </activity> <!-- activity result -->
         <activity android:name=".activityResult.HomeScreenActivity" />
         <activity android:name=".activityResult.simple.ReceiverActivity" />
         <activity android:name=".activityResult.simple.SenderActivity" />
         <activity android:name=".activityResult.ownContract.ReceiverActivity" />
         <activity android:name=".activityResult.ownContract.SenderActivity" />
-        <activity android:name=".activityResult.permission.ReceiverImageActivity" />
-
-        <!-- custom view -->
-        <activity android:name=".customView.CustomViewActivity" />
-
-        <!-- draw on canvas -->
+        <activity android:name=".activityResult.permission.ReceiverImageActivity" /> <!-- custom view -->
+        <activity android:name=".customView.CustomViewActivity" /> <!-- draw on canvas -->
         <activity
             android:name=".drawOnCanvas.DrawCanvasActivity"
-            android:theme="@style/FullScreen" />
-
-        <!-- clipping canvas objects -->
+            android:theme="@style/FullScreen" /> <!-- clipping canvas objects -->
         <activity
             android:name=".clippingCanvasObjects.ClippingCanvasObjects"
-            android:theme="@style/FullScreen" />
-
-        <!-- property animations -->
+            android:theme="@style/FullScreen" /> <!-- property animations -->
         <activity
             android:name=".propertyAnimations.PropertyAnimationsActivity"
             android:exported="true" />
+        <!-- motion layout -->
+
+        <activity
+            android:name=".motionLayout.MotionLayoutActivity"
+            android:theme="@style/MotionLayoutTheme" />
+        <activity
+            android:name=".motionLayout.Step1Activity"
+            android:label="@string/title_activity_step1"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step2Activity"
+            android:label="@string/title_activity_step2"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step3Activity"
+            android:label="@string/title_activity_step3"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step4Activity"
+            android:label="@string/title_activity_step4"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step5Activity"
+            android:label="@string/title_activity_step5"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step6Activity"
+            android:label="@string/title_activity_step6"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step7Activity"
+            android:label="@string/title_activity_step7"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step7CompletedActivity"
+            android:label="@string/title_activity_step7_completed"
+            android:theme="@style/MotionLayoutTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step8Activity"
+            android:label="@string/title_activity_step8"
+            android:theme="@style/MotionLayoutTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
+        <activity
+            android:name=".motionLayout.Step8CompletedActivity"
+            android:label="@string/title_activity_step8"
+            android:theme="@style/MotionLayoutTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".motionLayout.MotionLayoutActivity" />
+        </activity>
     </application>
 
 </manifest>
