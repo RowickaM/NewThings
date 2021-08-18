@@ -11,8 +11,8 @@
         <!-- Fix OnSwipe by changing touchAnchorSide -->
         <OnSwipe
             app:touchAnchorId="@id/moon"
-            app:touchAnchorSide="bottom" />
-
+            app:dragDirection="dragRight"
+            app:touchAnchorSide="right" />
 
         <KeyFrameSet>
             <KeyPosition
@@ -20,51 +20,55 @@
                 app:keyPositionType="parentRelative"
                 app:motionTarget="@id/moon"
                 app:percentY="0.6" />
+
             <KeyPosition
                 app:framePosition="50"
                 app:keyPositionType="parentRelative"
                 app:motionTarget="@id/moon"
                 app:percentY="0.5" />
+
             <KeyPosition
                 app:framePosition="75"
                 app:keyPositionType="parentRelative"
                 app:motionTarget="@id/moon"
                 app:percentY="0.6" />
-            <KeyAttribute
-                android:rotation="-360"
-                android:scaleX="2.0"
-                android:scaleY="2.0"
-                app:framePosition="50"
-                app:motionTarget="@id/moon" />
-            <KeyAttribute
-                android:rotation="-720"
-                app:framePosition="100"
-                app:motionTarget="@id/moon" />
+
             <KeyAttribute
                 app:framePosition="0"
                 app:motionTarget="@id/moon">
                 <CustomAttribute
                     app:attributeName="colorFilter"
-                    app:customColorValue="#FFFFFF" />
+                    app:customColorValue="#FF9C9C" />
             </KeyAttribute>
+
             <KeyAttribute
+                android:rotation="360"
                 app:framePosition="50"
                 app:motionTarget="@id/moon">
                 <CustomAttribute
                     app:attributeName="colorFilter"
-                    app:customColorValue="#FFB612" />
+                    app:customColorValue="#E5D360" />
             </KeyAttribute>
+
             <KeyAttribute
+                android:scaleX="2.0"
+                android:scaleY="2.0"
+                app:framePosition="50"
+                app:motionTarget="@id/moon" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="90"
+                app:motionTarget="@id/credits" />
+
+            <KeyAttribute
+                android:rotation="0"
                 app:framePosition="100"
                 app:motionTarget="@id/moon">
                 <CustomAttribute
                     app:attributeName="colorFilter"
                     app:customColorValue="#FFFFFF" />
             </KeyAttribute>
-            <KeyAttribute
-                android:alpha="0.0"
-                app:framePosition="85"
-                app:motionTarget="@id/credits" />
         </KeyFrameSet>
     </Transition>
 
