@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.rowicka.newthings.R
+import com.rowicka.newthings.motionLayout.examples.ExampleActivity
 import kotlin.reflect.KClass
 
 class MotionLayoutActivity : AppCompatActivity() {
@@ -131,5 +132,11 @@ private val data = listOf(
         "Changes applied from step 8",
         Step8CompletedActivity::class,
         highlight = true
+    ),
+    Step(
+        "Custom Example",
+        "A example of animation base on motion layout",
+        "own animation",
+        ExampleActivity::class,
     )
 )

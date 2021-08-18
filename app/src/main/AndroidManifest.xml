@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewThings">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,9 +34,7 @@
             android:theme="@style/FullScreen" /> <!-- property animations -->
         <activity
             android:name=".propertyAnimations.PropertyAnimationsActivity"
-            android:exported="true" />
-        <!-- motion layout -->
-
+            android:exported="true" /> <!-- motion layout -->
         <activity
             android:name=".motionLayout.MotionLayoutActivity"
             android:theme="@style/MotionLayoutTheme" />
@@ -119,6 +118,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".motionLayout.MotionLayoutActivity" />
         </activity>
+
+        <activity
+            android:name=".motionLayout.examples.ExampleActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
