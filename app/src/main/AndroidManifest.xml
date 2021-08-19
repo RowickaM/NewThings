@@ -132,6 +132,16 @@
 
         <activity android:name=".notifications.MainActivity"
             android:exported="true" />
+        <receiver
+            android:name=".notifications.receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".notifications.receiver.SnoozeReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>
