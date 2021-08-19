@@ -7,6 +7,7 @@ import com.rowicka.newthings.customView.CustomViewActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
 import com.rowicka.newthings.drawOnCanvas.DrawCanvasActivity
 import com.rowicka.newthings.motionLayout.MotionLayoutActivity
+import com.rowicka.newthings.notifications.MainActivity as NotificationActivity
 import com.rowicka.newthings.propertyAnimations.PropertyAnimationsActivity
 import com.rowicka.newthings.utils.BaseActivity
 
@@ -31,6 +32,7 @@ class MainActivity : BaseActivity() {
             navClippingCanvasObjects.setOnClickListener { navigateToActivity(ClippingCanvasObjects::class) }
             navPropertyAnimation.setOnClickListener { navigateToActivity(PropertyAnimationsActivity::class) }
             navMotionLayout.setOnClickListener { navigateToActivity(MotionLayoutActivity::class) }
+            navNotification.setOnClickListener { navigateToActivity(NotificationActivity::class) }
         }
     }
 }

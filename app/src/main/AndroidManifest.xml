@@ -17,25 +17,35 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- activity result -->
+        </activity>
+
+        <!-- activity result -->
         <activity android:name=".activityResult.HomeScreenActivity" />
         <activity android:name=".activityResult.simple.ReceiverActivity" />
         <activity android:name=".activityResult.simple.SenderActivity" />
         <activity android:name=".activityResult.ownContract.ReceiverActivity" />
         <activity android:name=".activityResult.ownContract.SenderActivity" />
-        <activity android:name=".activityResult.permission.ReceiverImageActivity" /> <!-- custom view -->
-        <activity android:name=".customView.CustomViewActivity" /> <!-- draw on canvas -->
+        <activity android:name=".activityResult.permission.ReceiverImageActivity" />
+
+        <!-- custom view -->
+        <activity android:name=".customView.CustomViewActivity" />
+
+        <!-- draw on canvas -->
         <activity
             android:name=".drawOnCanvas.DrawCanvasActivity"
-            android:theme="@style/FullScreen" /> <!-- clipping canvas objects -->
+            android:theme="@style/FullScreen" />
+
+        <!-- clipping canvas objects -->
         <activity
             android:name=".clippingCanvasObjects.ClippingCanvasObjects"
-            android:theme="@style/FullScreen" /> <!-- property animations -->
+            android:theme="@style/FullScreen" />
+
+        <!-- property animations -->
         <activity
             android:name=".propertyAnimations.PropertyAnimationsActivity"
             android:exported="true" />
-        <!-- motion layout -->
 
+        <!-- motion layout -->
         <activity
             android:name=".motionLayout.MotionLayoutActivity"
             android:theme="@style/MotionLayoutTheme" />
@@ -119,6 +129,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".motionLayout.MotionLayoutActivity" />
         </activity>
+
+        <activity android:name=".notifications.MainActivity"
+            android:exported="true" />
+        <receiver
+            android:name=".notifications.receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".notifications.receiver.SnoozeReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>
