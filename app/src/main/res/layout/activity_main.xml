@@ -55,6 +55,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/motion_layout_title" />
+
+    <TextView
+        android:id="@+id/navNotification"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/notifications" />
   </LinearLayout>
 
 </ScrollView>

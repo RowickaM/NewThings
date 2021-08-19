@@ -63,6 +63,7 @@
     <string name="title_activity_step8">Running motion with code</string>
 
     <!-- notifications  -->
+    <string name="notifications">Notifications</string>
     <string name="egg_prompt">How do you like your egg?</string>
     <string name="timer_on">Start</string>
     <string name="timer_off">Stop</string>

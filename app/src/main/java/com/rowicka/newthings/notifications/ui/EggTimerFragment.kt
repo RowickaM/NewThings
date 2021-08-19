@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.rowicka.newthings.R
 import com.rowicka.newthings.databinding.FragmentEggTimerBinding
 
 class EggTimerFragment : Fragment() {
@@ -17,16 +15,17 @@ class EggTimerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        val binding: FragmentEggTimerBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_egg_timer, container, false
-        )
-
+    ): View {
         val viewModel = ViewModelProvider(this).get(EggTimerViewModel::class.java)
 
-        binding.eggTimerViewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
+        val binding: FragmentEggTimerBinding = FragmentEggTimerBinding.inflate(
+            layoutInflater,
+            container,
+            false
+        ).apply {
+            eggTimerViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         // TODO: Step 1.7 call create channel
 
