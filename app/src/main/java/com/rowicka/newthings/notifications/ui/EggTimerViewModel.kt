@@ -1,15 +1,25 @@
 package com.rowicka.newthings.notifications.ui
 
-import android.app.*
+import android.app.AlarmManager
+import android.app.Application
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
 import android.os.SystemClock
 import androidx.core.app.AlarmManagerCompat
-import androidx.lifecycle.*
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.rowicka.newthings.R
 import com.rowicka.newthings.notifications.receiver.AlarmReceiver
-import kotlinx.coroutines.*
+import com.rowicka.newthings.notifications.util.cancelNotifications
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
 
@@ -96,13 +106,15 @@ class EggTimerViewModel(private val app: Application) : AndroidViewModel(app) {
                 _alarmOn.value = true
                 val selectedInterval = when (timerLengthSelection) {
                     0 -> second * 10 //For testing only
-                    else ->timerLengthOptions[timerLengthSelection] * minute
+                    else -> timerLengthOptions[timerLengthSelection] * minute
                 }
                 val triggerTime = SystemClock.elapsedRealtime() + selectedInterval
 
-                // TODO: Step 1.5 get an instance of NotificationManager and call sendNotification
-
-                // TODO: Step 1.15 call cancel notification
+                val notificationManager = ContextCompat.getSystemService(
+                    app,
+                    NotificationManager::class.java
+                ) as NotificationManager
+                notificationManager.cancelNotifications()
 
                 AlarmManagerCompat.setExactAndAllowWhileIdle(
                     alarmManager,
