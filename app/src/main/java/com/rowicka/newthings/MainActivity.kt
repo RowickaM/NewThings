@@ -2,10 +2,14 @@ package com.rowicka.newthings
 
 import android.os.Bundle
 import com.rowicka.newthings.activityResult.HomeScreenActivity
+import com.rowicka.newthings.clippingCanvasObjects.ClippingCanvasObjects
 import com.rowicka.newthings.customView.CustomViewActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
 import com.rowicka.newthings.drawOnCanvas.DrawCanvasActivity
 import com.rowicka.newthings.recyclerViewSection.RecyclerViewSectionActivity
+import com.rowicka.newthings.motionLayout.MotionLayoutActivity
+import com.rowicka.newthings.notifications.MainActivity as NotificationActivity
+import com.rowicka.newthings.propertyAnimations.PropertyAnimationsActivity
 import com.rowicka.newthings.utils.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -27,6 +31,10 @@ class MainActivity : BaseActivity() {
             navCustomView.setOnClickListener { navigateToActivity(CustomViewActivity::class) }
             navDrawOnCanvas.setOnClickListener { navigateToActivity(DrawCanvasActivity::class) }
             recyclerViewSection.setOnClickListener { navigateToActivity(RecyclerViewSectionActivity::class) }
+            navClippingCanvasObjects.setOnClickListener { navigateToActivity(ClippingCanvasObjects::class) }
+            navPropertyAnimation.setOnClickListener { navigateToActivity(PropertyAnimationsActivity::class) }
+            navMotionLayout.setOnClickListener { navigateToActivity(MotionLayoutActivity::class) }
+            navNotification.setOnClickListener { navigateToActivity(NotificationActivity::class) }
         }
     }
 }
