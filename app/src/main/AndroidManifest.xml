@@ -14,9 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewThings">
-        <activity
-            android:name=".geofences.GeofencesActivity"
-            android:exported="true" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -131,11 +128,16 @@
         <receiver
             android:name=".notifications.receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
         <receiver
             android:name=".notifications.receiver.SnoozeReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
+
+        <activity
+            android:name=".geofences.GeofencesActivity"
+            android:exported="true" />
+        <receiver android:name=".geofences.GeofenceBroadcastReceiver" />
     </application>
 
 </manifest>
