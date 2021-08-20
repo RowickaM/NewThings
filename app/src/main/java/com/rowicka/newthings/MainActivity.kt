@@ -6,6 +6,7 @@ import com.rowicka.newthings.clippingCanvasObjects.ClippingCanvasObjects
 import com.rowicka.newthings.customView.CustomViewActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
 import com.rowicka.newthings.drawOnCanvas.DrawCanvasActivity
+import com.rowicka.newthings.geofences.GeofencesActivity
 import com.rowicka.newthings.motionLayout.MotionLayoutActivity
 import com.rowicka.newthings.propertyAnimations.PropertyAnimationsActivity
 import com.rowicka.newthings.recyclerViewSection.RecyclerViewSectionActivity
@@ -35,6 +36,7 @@ class MainActivity : BaseActivity() {
             navPropertyAnimation.setOnClickListener { navigateToActivity(PropertyAnimationsActivity::class) }
             navMotionLayout.setOnClickListener { navigateToActivity(MotionLayoutActivity::class) }
             navNotification.setOnClickListener { navigateToActivity(NotificationActivity::class) }
+            navGeofences.setOnClickListener { navigateToActivity(GeofencesActivity::class) }
         }
     }
 }

@@ -3,6 +3,9 @@
     package="com.rowicka.newthings">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,43 +14,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NewThings">
+        <activity
+            android:name=".geofences.GeofencesActivity"
+            android:exported="true" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- activity result -->
+        </activity> <!-- activity result -->
         <activity android:name=".activityResult.HomeScreenActivity" />
         <activity android:name=".activityResult.simple.ReceiverActivity" />
         <activity android:name=".activityResult.simple.SenderActivity" />
         <activity android:name=".activityResult.ownContract.ReceiverActivity" />
         <activity android:name=".activityResult.ownContract.SenderActivity" />
-        <activity android:name=".activityResult.permission.ReceiverImageActivity" />
-
-        <!-- custom view -->
-        <activity android:name=".customView.CustomViewActivity" />
-
-        <!-- draw on canvas -->
+        <activity android:name=".activityResult.permission.ReceiverImageActivity" /> <!-- custom view -->
+        <activity android:name=".customView.CustomViewActivity" /> <!-- draw on canvas -->
         <activity
             android:name=".drawOnCanvas.DrawCanvasActivity"
             android:theme="@style/FullScreen" />
-
-        <activity android:name=".recyclerViewSection.RecyclerViewSectionActivity" />
-
-        <!-- clipping canvas objects -->
+        <activity android:name=".recyclerViewSection.RecyclerViewSectionActivity" /> <!-- clipping canvas objects -->
         <activity
             android:name=".clippingCanvasObjects.ClippingCanvasObjects"
-            android:theme="@style/FullScreen" />
-
-        <!-- property animations -->
+            android:theme="@style/FullScreen" /> <!-- property animations -->
         <activity
             android:name=".propertyAnimations.PropertyAnimationsActivity"
-            android:exported="true" />
-
-        <!-- motion layout -->
+            android:exported="true" /> <!-- motion layout -->
         <activity
             android:name=".motionLayout.MotionLayoutActivity"
             android:theme="@style/MotionLayoutTheme" />
@@ -131,19 +124,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".motionLayout.MotionLayoutActivity" />
         </activity>
-
-        <activity android:name=".notifications.MainActivity"
+        <activity
+            android:name=".notifications.MainActivity"
             android:exported="true" />
+
         <receiver
             android:name=".notifications.receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="false">
-        </receiver>
+            android:exported="false"></receiver>
         <receiver
             android:name=".notifications.receiver.SnoozeReceiver"
             android:enabled="true"
-            android:exported="false">
-        </receiver>
+            android:exported="false"></receiver>
     </application>
 
 </manifest>
