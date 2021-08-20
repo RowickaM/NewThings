@@ -6,11 +6,11 @@ import com.rowicka.newthings.clippingCanvasObjects.ClippingCanvasObjects
 import com.rowicka.newthings.customView.CustomViewActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
 import com.rowicka.newthings.drawOnCanvas.DrawCanvasActivity
-import com.rowicka.newthings.recyclerViewSection.RecyclerViewSectionActivity
 import com.rowicka.newthings.motionLayout.MotionLayoutActivity
-import com.rowicka.newthings.notifications.MainActivity as NotificationActivity
 import com.rowicka.newthings.propertyAnimations.PropertyAnimationsActivity
+import com.rowicka.newthings.recyclerViewSection.RecyclerViewSectionActivity
 import com.rowicka.newthings.utils.BaseActivity
+import com.rowicka.newthings.notifications.MainActivity as NotificationActivity
 
 class MainActivity : BaseActivity() {
 
