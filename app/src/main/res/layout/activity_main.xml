@@ -76,6 +76,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/geofences_title" />
+
+    <TextView
+        android:id="@+id/navCalendar"
+        style="@style/Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/calendar_title" />
   </LinearLayout>
 
 </ScrollView>

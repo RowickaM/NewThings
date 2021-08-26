@@ -2,6 +2,7 @@ package com.rowicka.newthings
 
 import android.os.Bundle
 import com.rowicka.newthings.activityResult.HomeScreenActivity
+import com.rowicka.newthings.calendar.CalendarActivity
 import com.rowicka.newthings.clippingCanvasObjects.ClippingCanvasObjects
 import com.rowicka.newthings.customView.CustomViewActivity
 import com.rowicka.newthings.databinding.ActivityMainBinding
@@ -37,6 +38,7 @@ class MainActivity : BaseActivity() {
             navMotionLayout.setOnClickListener { navigateToActivity(MotionLayoutActivity::class) }
             navNotification.setOnClickListener { navigateToActivity(NotificationActivity::class) }
             navGeofences.setOnClickListener { navigateToActivity(GeofencesActivity::class) }
+            navCalendar.setOnClickListener { navigateToActivity(CalendarActivity::class) }
         }
     }
 }

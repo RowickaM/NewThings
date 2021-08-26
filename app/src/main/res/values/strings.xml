@@ -116,4 +116,7 @@
     <string name="content_text">You found a clue <xliff:g id="geofence_location">%1$s</xliff:g>.</string>
     <string name="notification_channel_description">Geofence status notification</string>
     <string name="android_map_description">An Android robot with a map</string>
+
+    <!-- Calendar -->
+    <string name="calendar_title">Kalendarz</string>
 </resources>

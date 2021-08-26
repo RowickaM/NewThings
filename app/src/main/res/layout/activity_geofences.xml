@@ -27,7 +27,6 @@
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginEnd="@dimen/horizontal_margin"
             android:layout_marginBottom="@dimen/vertical_margin"
-            android:fontFamily="@font/della_respira"
             android:text="@{context.getString(viewmodel.geofenceHintResourceId)}"
             android:textAlignment="center"
             android:textSize="@dimen/hint_text_size"
