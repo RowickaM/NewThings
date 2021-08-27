@@ -24,18 +24,22 @@ fun CalendarMonth(
     columnWidth: Dp = 35.dp,
     dayHeight: Dp = 35.dp,
     colorDayInMonth: Color = Color.Black,
-    colorDayOutMonth: Color = Color.LightGray
+    colorDayOutMonth: Color = Color.LightGray,
+    dayStart: DayOfWeek = DayOfWeek.MONDAY
 ) {
     val prevMonthLength = date.minusMonths(1).month.length(true)
     val firstDayOfMonth = date.withDayOfMonth(1)
-    val offset = (DayOfWeek.SUNDAY.value - firstDayOfMonth.dayOfWeek.value)
+    val offset = (dayStart.value - firstDayOfMonth.dayOfWeek.value)
     val monthLength = date.month.length(true)
     val weeks = (offset + monthLength) / 7
     val lastDaysCount = (monthLength - weeks * 7) + offset
     val totalWeeks = weeks + if (lastDaysCount > 0) 1 else 0
 
     Column {
-        DayIndicator(columnWidth = columnWidth)
+        DayIndicator(
+            columnWidth = columnWidth,
+            dayStart = dayStart
+        )
 
         Spacer(modifier = Modifier.height(8.dp))
 

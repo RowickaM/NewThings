@@ -12,13 +12,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import java.text.DateFormatSymbols
+import java.time.DayOfWeek
 import java.util.*
 
 @Composable
 fun DayIndicator(
-    columnWidth: Dp = 35.dp,
+    dayStart: DayOfWeek,
+    columnWidth: Dp = 35.dp
 ) {
-    val days = DateFormatSymbols(Locale.getDefault()).shortWeekdays.filter { it.isNotEmpty() }
+    var days = DateFormatSymbols(Locale.getDefault()).shortWeekdays.filter { it.isNotEmpty() }
+
+    if (dayStart != DayOfWeek.SUNDAY) {
+        val startArray = days.subList(dayStart.value, days.size)
+        val endArray = days.subList(0, dayStart.value)
+
+        days = startArray + endArray
+    }
 
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
