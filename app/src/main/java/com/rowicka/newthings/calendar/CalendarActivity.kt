@@ -3,12 +3,7 @@ package com.rowicka.newthings.calendar
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -19,14 +14,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.text.DateFormatSymbols
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeFormatter
@@ -129,126 +120,12 @@ class CalendarActivity : AppCompatActivity() {
         date: LocalDate,
         onClickItem: (LocalDate) -> Unit
     ) {
-        val days = DateFormatSymbols(Locale.getDefault()).shortWeekdays.filter { it.isNotEmpty() }
-        Column {
-            LazyRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                items(items = days) { weekday ->
-                    if (weekday.isNotEmpty()) {
-                        Text(
-                            modifier = Modifier.width(35.dp),
-                            text = weekday
-                                .dropLast(if (weekday.length <= 4) 1 else weekday.length - 3)
-                                .uppercase(),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                }
-            }
-
-            val prevMonthLength = date.minusMonths(1).month.length(true)
-
-            val firstDayOfMonth = date.withDayOfMonth(1)
-            val offset = (DayOfWeek.SUNDAY.value - firstDayOfMonth.dayOfWeek.value)
-
-            val monthLength = date.month.length(true)
-
-            val weeks = (offset + monthLength) / 7
-            val lastDaysCount = (monthLength - weeks * 7) + offset
-
-            val totalWeeks = weeks + if (lastDaysCount > 0) 1 else 0
-            LazyColumn {
-                itemsIndexed(items = (1..totalWeeks).toList()) { index, _ ->
-                    LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ) {
-                        items(
-                            items = getDaysForRow(
-                                week = index,
-                                offset = offset,
-                                daysOfLastMonth = prevMonthLength,
-                                monthLength = monthLength
-                            )
-                        ) { item ->
-                            Box(
-                                contentAlignment = Alignment.Center,
-                                modifier = Modifier
-                                    .width(35.dp)
-                                    .height(35.dp)
-                                    .clickable {
-                                        when (item.type) {
-                                            DayType.IN_MONTH -> {
-                                                val newDate = LocalDate.of(
-                                                    date.year,
-                                                    date.month,
-                                                    item.value
-                                                )
-
-                                                onClickItem(newDate)
-                                            }
-                                            DayType.NEXT_MONTH -> {
-                                                var newDate = date.plusMonths(1)
-                                                newDate = newDate.withDayOfMonth(item.value)
-
-                                                onClickItem(newDate)
-                                            }
-                                            DayType.PREV_MONTH -> {
-                                                var newDate = date.minusMonths(1)
-                                                newDate = newDate.withDayOfMonth(item.value)
-
-                                                onClickItem(newDate)
-                                            }
-                                        }
-                                    },
-                            ) {
-                                Text(
-                                    text = item.value.toString(),
-                                    textAlign = TextAlign.Center,
-                                    color = if (item.type == DayType.IN_MONTH) Color.Black else Color.LightGray
-                                )
-                            }
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun getDaysForRow(
-        week: Int,
-        offset: Int,
-        daysOfLastMonth: Int,
-        monthLength: Int,
-    ): List<Day> {
-        val list = arrayListOf<Day>()
-
-        if (week == 0) {
-            for (i in 1..7) {
-                if (i > offset) {
-                    list.add(Day(i - offset, DayType.IN_MONTH))
-                } else {
-                    list.add(Day(daysOfLastMonth - offset + i, DayType.PREV_MONTH))
-                }
-            }
-        } else {
-            var positionOnLastDay = 0
-            for (i in 1..7) {
-                val day = i + week * 7 - offset
-                list.add(
-                    if (day > monthLength) {
-                        Day(i - positionOnLastDay, DayType.NEXT_MONTH)
-                    } else {
-                        positionOnLastDay += 1
-                        Day(day, DayType.IN_MONTH)
-                    }
-                )
-            }
-        }
-        return list
+        CalendarMonth(
+            date = date,
+            onClickItem = onClickItem,
+            columnWidth = 35.dp,
+            dayHeight = 35.dp
+        )
     }
 
     @Preview(showBackground = true)
@@ -277,13 +154,4 @@ class CalendarActivity : AppCompatActivity() {
             CalendarMonth(firstDayOfAugust, {})
         }
     }
-}
-
-data class Day(
-    val value: Int,
-    val type: DayType
-)
-
-enum class DayType {
-    IN_MONTH, PREV_MONTH, NEXT_MONTH
 }
