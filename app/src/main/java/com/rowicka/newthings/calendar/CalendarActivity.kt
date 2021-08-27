@@ -1,7 +1,6 @@
 package com.rowicka.newthings.calendar
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
@@ -19,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,14 +40,7 @@ class CalendarActivity : AppCompatActivity() {
 
 
         setContent {
-//            val (dateTime, setDate) = remember { mutableStateOf(LocalDate.now()) }
-            val (dateTime, setDate) = remember {
-                mutableStateOf(
-                    LocalDate.of(2021,
-                        Month.JULY,//Month.AUGUST
-                        1)
-                )
-            }
+            val (dateTime, setDate) = remember { mutableStateOf(LocalDate.now()) }
 
             Column {
                 Spacer(modifier = Modifier.height(150.dp))
@@ -154,31 +147,33 @@ class CalendarActivity : AppCompatActivity() {
             val prevMonthLength = date.minusMonths(1).month.length(true)
 
             val firstDayOfMonth = LocalDate.of(date.year, date.month, 1)
-            val offset = 7 - (DayOfWeek.SUNDAY.value - firstDayOfMonth.dayOfWeek.value)
+            val offset = (DayOfWeek.SUNDAY.value - firstDayOfMonth.dayOfWeek.value)
 
             val monthLength = date.month.length(true)
 
             val weeks = (offset + monthLength) / 7
             val lastDaysCount = (monthLength - weeks * 7) + offset
 
-            val totalWeeks = weeks + if (offset > 0) 1 else 0
-            Log.d("MRMRMR", "$totalWeeks: ")
+            val totalWeeks = weeks + if (lastDaysCount > 0) 1 else 0
             LazyColumn {
-                itemsIndexed(items = (1..totalWeeks).toList()) { index, item ->
+                itemsIndexed(items = (1..totalWeeks).toList()) { index, _ ->
                     LazyRow(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
-                        itemsIndexed(items = getDaysForRow(
-                            week = index,
-                            offset = offset,
-                            daysOfLastMonth = prevMonthLength,
-                            monthLength = monthLength
-                        )) { index, item ->
+                        items(
+                            items = getDaysForRow(
+                                week = index,
+                                offset = offset,
+                                daysOfLastMonth = prevMonthLength,
+                                monthLength = monthLength
+                            )
+                        ) { item ->
                             Text(
                                 modifier = Modifier.width(35.dp),
-                                text = item.toString(),
-                                textAlign = TextAlign.Center
+                                text = item.value.toString(),
+                                textAlign = TextAlign.Center,
+                                color = if (item.type == DayType.IN_MONTH) Color.Black else Color.LightGray
                             )
                         }
                     }
@@ -192,16 +187,15 @@ class CalendarActivity : AppCompatActivity() {
         offset: Int,
         daysOfLastMonth: Int,
         monthLength: Int,
-    ): List<Int> {
-        Log.d("MRMRMR", "week $week")
-        val list = arrayListOf<Int>()
+    ): List<Day> {
+        val list = arrayListOf<Day>()
 
         if (week == 0) {
             for (i in 1..7) {
                 if (i > offset) {
-                    list.add(i - offset)
+                    list.add(Day(i - offset, DayType.IN_MONTH))
                 } else {
-                    list.add(daysOfLastMonth - offset + i)
+                    list.add(Day(daysOfLastMonth - offset + i, DayType.OUT_MONTH))
                 }
             }
         } else {
@@ -210,15 +204,14 @@ class CalendarActivity : AppCompatActivity() {
                 val day = i + week * 7 - offset
                 list.add(
                     if (day > monthLength) {
-                        i - positionOnLastDay
+                        Day(i - positionOnLastDay, DayType.OUT_MONTH)
                     } else {
                         positionOnLastDay += 1
-                        day
-                    })
+                        Day(day, DayType.IN_MONTH)
+                    }
+                )
             }
         }
-
-        Log.d("MRMRMR", "$list")
         return list
     }
 
@@ -229,11 +222,32 @@ class CalendarActivity : AppCompatActivity() {
         val firstDayOfAugust = LocalDate.of(2021, Month.AUGUST, 1)
 
         Column {
-            Text(text = firstDayOfJuly.toString(),modifier = Modifier.fillMaxWidth().wrapContentWidth().padding(top = 16.dp, bottom = 8.dp))
+            Text(
+                text = firstDayOfJuly.toString(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth()
+                    .padding(top = 16.dp, bottom = 8.dp)
+            )
             CalendarMonth(firstDayOfJuly)
 
-            Text(text = firstDayOfAugust.toString(),modifier = Modifier.fillMaxWidth().wrapContentWidth().padding(top = 16.dp, bottom = 8.dp))
+            Text(
+                text = firstDayOfAugust.toString(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentWidth()
+                    .padding(top = 16.dp, bottom = 8.dp)
+            )
             CalendarMonth(firstDayOfAugust)
         }
     }
+}
+
+data class Day(
+    val value: Int,
+    val type: DayType
+)
+
+enum class DayType {
+    IN_MONTH, OUT_MONTH
 }
