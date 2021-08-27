@@ -3,6 +3,7 @@ package com.rowicka.newthings.calendar
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -52,7 +53,7 @@ class CalendarActivity : AppCompatActivity() {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                CalendarMonth(date = dateTime)
+                CalendarMonth(date = dateTime, onClickItem = setDate)
 
                 if (dateTime != LocalDate.now()) {
                     Button(onClick = { setDate(LocalDate.now()) }) {
@@ -124,7 +125,10 @@ class CalendarActivity : AppCompatActivity() {
     }
 
     @Composable
-    fun CalendarMonth(date: LocalDate) {
+    fun CalendarMonth(
+        date: LocalDate,
+        onClickItem: (LocalDate) -> Unit
+    ) {
         val days = DateFormatSymbols(Locale.getDefault()).shortWeekdays.filter { it.isNotEmpty() }
         Column {
             LazyRow(
@@ -146,7 +150,7 @@ class CalendarActivity : AppCompatActivity() {
 
             val prevMonthLength = date.minusMonths(1).month.length(true)
 
-            val firstDayOfMonth = LocalDate.of(date.year, date.month, 1)
+            val firstDayOfMonth = date.withDayOfMonth(1)
             val offset = (DayOfWeek.SUNDAY.value - firstDayOfMonth.dayOfWeek.value)
 
             val monthLength = date.month.length(true)
@@ -170,7 +174,29 @@ class CalendarActivity : AppCompatActivity() {
                             )
                         ) { item ->
                             Text(
-                                modifier = Modifier.width(35.dp),
+                                modifier = Modifier
+                                    .width(35.dp)
+                                    .clickable {
+                                        if (item.type == DayType.IN_MONTH) {
+                                            val newDate = LocalDate.of(
+                                                date.year,
+                                                date.month,
+                                                item.value
+                                            )
+
+                                            onClickItem(newDate)
+                                        } else if (item.type == DayType.NEXT_MONTH) {
+                                            var newDate = date.plusMonths(1)
+                                            newDate = newDate.withDayOfMonth(item.value)
+
+                                            onClickItem(newDate)
+                                        } else if (item.type == DayType.PREV_MONTH) {
+                                            var newDate = date.minusMonths(1)
+                                            newDate = newDate.withDayOfMonth(item.value)
+
+                                            onClickItem(newDate)
+                                        }
+                                    },
                                 text = item.value.toString(),
                                 textAlign = TextAlign.Center,
                                 color = if (item.type == DayType.IN_MONTH) Color.Black else Color.LightGray
@@ -195,7 +221,7 @@ class CalendarActivity : AppCompatActivity() {
                 if (i > offset) {
                     list.add(Day(i - offset, DayType.IN_MONTH))
                 } else {
-                    list.add(Day(daysOfLastMonth - offset + i, DayType.OUT_MONTH))
+                    list.add(Day(daysOfLastMonth - offset + i, DayType.PREV_MONTH))
                 }
             }
         } else {
@@ -204,7 +230,7 @@ class CalendarActivity : AppCompatActivity() {
                 val day = i + week * 7 - offset
                 list.add(
                     if (day > monthLength) {
-                        Day(i - positionOnLastDay, DayType.OUT_MONTH)
+                        Day(i - positionOnLastDay, DayType.NEXT_MONTH)
                     } else {
                         positionOnLastDay += 1
                         Day(day, DayType.IN_MONTH)
@@ -229,7 +255,7 @@ class CalendarActivity : AppCompatActivity() {
                     .wrapContentWidth()
                     .padding(top = 16.dp, bottom = 8.dp)
             )
-            CalendarMonth(firstDayOfJuly)
+            CalendarMonth(firstDayOfJuly, {})
 
             Text(
                 text = firstDayOfAugust.toString(),
@@ -238,7 +264,7 @@ class CalendarActivity : AppCompatActivity() {
                     .wrapContentWidth()
                     .padding(top = 16.dp, bottom = 8.dp)
             )
-            CalendarMonth(firstDayOfAugust)
+            CalendarMonth(firstDayOfAugust, {})
         }
     }
 }
@@ -249,5 +275,5 @@ data class Day(
 )
 
 enum class DayType {
-    IN_MONTH, OUT_MONTH
+    IN_MONTH, PREV_MONTH, NEXT_MONTH
 }
