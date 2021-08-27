@@ -173,34 +173,44 @@ class CalendarActivity : AppCompatActivity() {
                                 monthLength = monthLength
                             )
                         ) { item ->
-                            Text(
+                            Box(
+                                contentAlignment = Alignment.Center,
                                 modifier = Modifier
                                     .width(35.dp)
+                                    .height(35.dp)
                                     .clickable {
-                                        if (item.type == DayType.IN_MONTH) {
-                                            val newDate = LocalDate.of(
-                                                date.year,
-                                                date.month,
-                                                item.value
-                                            )
+                                        when (item.type) {
+                                            DayType.IN_MONTH -> {
+                                                val newDate = LocalDate.of(
+                                                    date.year,
+                                                    date.month,
+                                                    item.value
+                                                )
 
-                                            onClickItem(newDate)
-                                        } else if (item.type == DayType.NEXT_MONTH) {
-                                            var newDate = date.plusMonths(1)
-                                            newDate = newDate.withDayOfMonth(item.value)
+                                                onClickItem(newDate)
+                                            }
+                                            DayType.NEXT_MONTH -> {
+                                                var newDate = date.plusMonths(1)
+                                                newDate = newDate.withDayOfMonth(item.value)
 
-                                            onClickItem(newDate)
-                                        } else if (item.type == DayType.PREV_MONTH) {
-                                            var newDate = date.minusMonths(1)
-                                            newDate = newDate.withDayOfMonth(item.value)
+                                                onClickItem(newDate)
+                                            }
+                                            DayType.PREV_MONTH -> {
+                                                var newDate = date.minusMonths(1)
+                                                newDate = newDate.withDayOfMonth(item.value)
 
-                                            onClickItem(newDate)
+                                                onClickItem(newDate)
+                                            }
                                         }
                                     },
-                                text = item.value.toString(),
-                                textAlign = TextAlign.Center,
-                                color = if (item.type == DayType.IN_MONTH) Color.Black else Color.LightGray
-                            )
+                            ) {
+                                Text(
+                                    text = item.value.toString(),
+                                    textAlign = TextAlign.Center,
+                                    color = if (item.type == DayType.IN_MONTH) Color.Black else Color.LightGray
+                                )
+                            }
+
                         }
                     }
                 }
