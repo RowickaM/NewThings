@@ -1,11 +1,13 @@
 package com.rowicka.newthings.calendar
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,32 +22,12 @@ import kotlin.math.abs
 
 const val AMOUNT_DAYS_IN_WEEK = 7
 
-private fun getTotalWeeks(
-    offset: Int,
-    monthLength: Int
-): Int {
-    val firstWeekDaysAmount = if (offset > 0) {
-        AMOUNT_DAYS_IN_WEEK - offset
-    } else {
-        0
-    }
-
-    val fullWeeksAmount = (monthLength - firstWeekDaysAmount) / AMOUNT_DAYS_IN_WEEK
-    val lastDaysCount = (monthLength - firstWeekDaysAmount) % AMOUNT_DAYS_IN_WEEK
-
-    val weekWithPrevMonth = if (offset > 0) 1 else 0
-    val weekWithNextMonth = if (lastDaysCount > 0) 1 else 0
-    return fullWeeksAmount + weekWithPrevMonth + weekWithNextMonth
-}
-
-private fun checkLeapYear(year: Int): Boolean {
-    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
-}
-
 @Composable
 fun CalendarMonth(
     date: LocalDate,
     onClickItem: (LocalDate) -> Unit,
+    selectBackground: Color = Color(191, 212, 230, 255),
+    selectRoundCorner: Dp = 8.dp,
     columnWidth: Dp = 35.dp,
     dayHeight: Dp = 35.dp,
     colorDayInMonth: Color = Color.Black,
@@ -89,7 +71,9 @@ fun CalendarMonth(
                             dayHeight = dayHeight,
                             colorDayInMonth = colorDayInMonth,
                             colorDayOutMonth = colorDayOutMonth,
-                            item = item
+                            item = item,
+                            selectBackground = selectBackground,
+                            selectRoundCorner = selectRoundCorner
                         )
                     }
                 }
@@ -101,6 +85,8 @@ fun CalendarMonth(
 @Composable
 private fun DisplayDay(
     modifier: Modifier = Modifier,
+    selectBackground: Color,
+    selectRoundCorner: Dp,
     date: LocalDate,
     onClickItem: (LocalDate) -> Unit,
     columnWidth: Dp = 35.dp,
@@ -110,12 +96,17 @@ private fun DisplayDay(
     item: Day
 ) {
     val colorText = if (item.type == DayType.IN_MONTH) colorDayInMonth else colorDayOutMonth
+    val backgroundColor = if (item.type == DayType.IN_MONTH && item.value == date.dayOfMonth)
+        selectBackground
+    else
+        Color.Transparent
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .width(columnWidth)
             .height(dayHeight)
+            .background(color = backgroundColor, shape = RoundedCornerShape(selectRoundCorner))
             .clickable {
                 onClickDay(
                     item = item,
@@ -202,6 +193,28 @@ private fun getDaysForRow(
         }
     }
     return list
+}
+
+private fun getTotalWeeks(
+    offset: Int,
+    monthLength: Int
+): Int {
+    val firstWeekDaysAmount = if (offset > 0) {
+        AMOUNT_DAYS_IN_WEEK - offset
+    } else {
+        0
+    }
+
+    val fullWeeksAmount = (monthLength - firstWeekDaysAmount) / AMOUNT_DAYS_IN_WEEK
+    val lastDaysCount = (monthLength - firstWeekDaysAmount) % AMOUNT_DAYS_IN_WEEK
+
+    val weekWithPrevMonth = if (offset > 0) 1 else 0
+    val weekWithNextMonth = if (lastDaysCount > 0) 1 else 0
+    return fullWeeksAmount + weekWithPrevMonth + weekWithNextMonth
+}
+
+private fun checkLeapYear(year: Int): Boolean {
+    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
 }
 
 private data class Day(
