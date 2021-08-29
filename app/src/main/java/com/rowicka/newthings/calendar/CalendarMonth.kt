@@ -16,6 +16,31 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import java.time.DayOfWeek
 import java.time.LocalDate
+import kotlin.math.abs
+
+const val AMOUNT_DAYS_IN_WEEK = 7
+
+private fun getTotalWeeks(
+    offset: Int,
+    monthLength: Int
+): Int {
+    val firstWeekDaysAmount = if (offset > 0) {
+        AMOUNT_DAYS_IN_WEEK - offset
+    } else {
+        0
+    }
+
+    val fullWeeksAmount = (monthLength - firstWeekDaysAmount) / AMOUNT_DAYS_IN_WEEK
+    val lastDaysCount = (monthLength - firstWeekDaysAmount) % AMOUNT_DAYS_IN_WEEK
+
+    val weekWithPrevMonth = if (offset > 0) 1 else 0
+    val weekWithNextMonth = if (lastDaysCount > 0) 1 else 0
+    return fullWeeksAmount + weekWithPrevMonth + weekWithNextMonth
+}
+
+private fun checkLeapYear(year: Int): Boolean {
+    return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+}
 
 @Composable
 fun CalendarMonth(
@@ -27,13 +52,12 @@ fun CalendarMonth(
     colorDayOutMonth: Color = Color.LightGray,
     dayStart: DayOfWeek = DayOfWeek.MONDAY
 ) {
-    val prevMonthLength = date.minusMonths(1).month.length(true)
+    val prevMonthLength = date.minusMonths(1).month.length(checkLeapYear(date.year))
     val firstDayOfMonth = date.withDayOfMonth(1)
-    val offset = (dayStart.value - firstDayOfMonth.dayOfWeek.value)
-    val monthLength = date.month.length(true)
-    val weeks = (offset + monthLength) / 7
-    val lastDaysCount = (monthLength - weeks * 7) + offset
-    val totalWeeks = weeks + if (lastDaysCount > 0) 1 else 0
+    val offset = firstDayOfMonth.dayOfWeek.value - dayStart.value
+    val monthLength = date.month.length(checkLeapYear(date.year))
+
+    val totalWeeks = getTotalWeeks(offset, monthLength)
 
     Column {
         DayIndicator(
@@ -153,19 +177,20 @@ private fun getDaysForRow(
     monthLength: Int,
 ): List<Day> {
     val list = arrayListOf<Day>()
+    val absoluteOffset = abs(offset)
 
     if (week == 0) {
-        for (i in 1..7) {
-            if (i > offset) {
-                list.add(Day(i - offset, DayType.IN_MONTH))
+        for (i in 1..AMOUNT_DAYS_IN_WEEK) {
+            if (i > absoluteOffset) {
+                list.add(Day(i - absoluteOffset, DayType.IN_MONTH))
             } else {
-                list.add(Day(daysOfLastMonth - offset + i, DayType.PREV_MONTH))
+                list.add(Day(daysOfLastMonth - absoluteOffset + i, DayType.PREV_MONTH))
             }
         }
     } else {
         var positionOnLastDay = 0
-        for (i in 1..7) {
-            val day = i + week * 7 - offset
+        for (i in 1..AMOUNT_DAYS_IN_WEEK) {
+            val day = i + week * AMOUNT_DAYS_IN_WEEK - absoluteOffset
             list.add(
                 if (day > monthLength) {
                     Day(i - positionOnLastDay, DayType.NEXT_MONTH)
