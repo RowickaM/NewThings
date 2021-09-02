@@ -32,14 +32,12 @@ fun CalendarMonth(
     dayHeight: Dp = 35.dp,
     colorDayInMonth: Color = Color.Black,
     colorDayOutMonth: Color = Color.LightGray,
-    dayStart: DayOfWeek = DayOfWeek.MONDAY
+    dayStart: DayOfWeek = DayOfWeek.MONDAY,
 ) {
-    val prevMonthLength = date.minusMonths(1).month.length(checkLeapYear(date.year))
+
     val firstDayOfMonth = date.withDayOfMonth(1)
     val offset = firstDayOfMonth.dayOfWeek.value - dayStart.value
-    val monthLength = date.month.length(checkLeapYear(date.year))
 
-    val totalWeeks = getTotalWeeks(offset, monthLength)
 
     Column {
         DayIndicator(
@@ -49,33 +47,62 @@ fun CalendarMonth(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        LazyColumn {
-            itemsIndexed(items = (1..totalWeeks).toList()) { index, _ ->
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    items(
-                        items = getDaysForRow(
-                            week = index,
-                            offset = offset,
-                            daysOfLastMonth = prevMonthLength,
-                            monthLength = monthLength
-                        )
-                    ) { item ->
+        DisplayMonth(
+            date = date,
+            onClickItem = onClickItem,
+            selectBackground = selectBackground,
+            selectRoundCorner = selectRoundCorner,
+            columnWidth = columnWidth,
+            dayHeight = dayHeight,
+            colorDayInMonth = colorDayInMonth,
+            colorDayOutMonth = colorDayOutMonth,
+            offset = offset,
+        )
+    }
+}
 
-                        DisplayDay(
-                            date = date,
-                            onClickItem = onClickItem,
-                            columnWidth = columnWidth,
-                            dayHeight = dayHeight,
-                            colorDayInMonth = colorDayInMonth,
-                            colorDayOutMonth = colorDayOutMonth,
-                            item = item,
-                            selectBackground = selectBackground,
-                            selectRoundCorner = selectRoundCorner
-                        )
-                    }
+@Composable
+private fun DisplayMonth(
+    date: LocalDate,
+    onClickItem: (LocalDate) -> Unit,
+    selectBackground: Color,
+    selectRoundCorner: Dp,
+    columnWidth: Dp,
+    dayHeight: Dp,
+    colorDayInMonth: Color,
+    colorDayOutMonth: Color,
+    offset: Int,
+) {
+    val prevMonthLength = date.minusMonths(1).month.length(checkLeapYear(date.year))
+    val monthLength = date.month.length(checkLeapYear(date.year))
+
+    val totalWeeks = getTotalWeeks(offset, monthLength)
+    LazyColumn {
+        itemsIndexed(items = (1..totalWeeks).toList()) { index, _ ->
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                items(
+                    items = getDaysForRow(
+                        week = index,
+                        offset = offset,
+                        daysOfLastMonth = prevMonthLength,
+                        monthLength = monthLength
+                    )
+                ) { item ->
+
+                    DisplayDay(
+                        date = date,
+                        onClickItem = onClickItem,
+                        columnWidth = columnWidth,
+                        dayHeight = dayHeight,
+                        colorDayInMonth = colorDayInMonth,
+                        colorDayOutMonth = colorDayOutMonth,
+                        item = item,
+                        selectBackground = selectBackground,
+                        selectRoundCorner = selectRoundCorner
+                    )
                 }
             }
         }
@@ -93,7 +120,7 @@ private fun DisplayDay(
     dayHeight: Dp = 35.dp,
     colorDayInMonth: Color = Color.Black,
     colorDayOutMonth: Color = Color.LightGray,
-    item: Day
+    item: Day,
 ) {
     val colorText = if (item.type == DayType.IN_MONTH) colorDayInMonth else colorDayOutMonth
     val backgroundColor = if (item.type == DayType.IN_MONTH && item.value == date.dayOfMonth)
@@ -197,7 +224,7 @@ private fun getDaysForRow(
 
 private fun getTotalWeeks(
     offset: Int,
-    monthLength: Int
+    monthLength: Int,
 ): Int {
     val firstWeekDaysAmount = if (offset > 0) {
         AMOUNT_DAYS_IN_WEEK - offset
@@ -219,7 +246,7 @@ private fun checkLeapYear(year: Int): Boolean {
 
 private data class Day(
     val value: Int,
-    val type: DayType
+    val type: DayType,
 )
 
 private enum class DayType {
