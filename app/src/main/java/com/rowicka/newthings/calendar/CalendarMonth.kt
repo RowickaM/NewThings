@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -77,21 +75,19 @@ private fun DisplayMonth(
     val monthLength = date.month.length(checkLeapYear(date.year))
 
     val totalWeeks = getTotalWeeks(offset, monthLength)
+
     LazyColumn {
         itemsIndexed(items = (1..totalWeeks).toList()) { index, _ ->
-            LazyRow(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                items(
-                    items = getDaysForRow(
-                        week = index,
-                        offset = offset,
-                        daysOfLastMonth = prevMonthLength,
-                        monthLength = monthLength
-                    )
-                ) { item ->
-
+                getDaysForRow(
+                    week = index,
+                    offset = offset,
+                    daysOfLastMonth = prevMonthLength,
+                    monthLength = monthLength
+                ).forEach { item ->
                     DisplayDay(
                         date = date,
                         onClickItem = onClickItem,
@@ -105,6 +101,33 @@ private fun DisplayMonth(
                     )
                 }
             }
+//            LazyRow(
+//                modifier = Modifier.fillMaxWidth(),
+//                horizontalArrangement = Arrangement.SpaceBetween,
+//                state = state
+//            ) {
+//                items(
+//                    items = getDaysForRow(
+//                        week = index,
+//                        offset = offset,
+//                        daysOfLastMonth = prevMonthLength,
+//                        monthLength = monthLength
+//                    )
+//                ) { item ->
+//
+//                    DisplayDay(
+//                        date = date,
+//                        onClickItem = onClickItem,
+//                        columnWidth = columnWidth,
+//                        dayHeight = dayHeight,
+//                        colorDayInMonth = colorDayInMonth,
+//                        colorDayOutMonth = colorDayOutMonth,
+//                        item = item,
+//                        selectBackground = selectBackground,
+//                        selectRoundCorner = selectRoundCorner
+//                    )
+//                }
+//            }
         }
     }
 }

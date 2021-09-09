@@ -1,6 +1,7 @@
 package com.rowicka.newthings
 
 import android.os.Bundle
+import androidx.compose.material.ExperimentalMaterialApi
 import com.rowicka.newthings.activityResult.HomeScreenActivity
 import com.rowicka.newthings.calendar.CalendarActivity
 import com.rowicka.newthings.clippingCanvasObjects.ClippingCanvasObjects
@@ -14,6 +15,7 @@ import com.rowicka.newthings.recyclerViewSection.RecyclerViewSectionActivity
 import com.rowicka.newthings.utils.BaseActivity
 import com.rowicka.newthings.notifications.MainActivity as NotificationActivity
 
+@ExperimentalMaterialApi
 class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding

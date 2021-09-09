@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronLeft
@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.rowicka.newthings.calendar.swipeToChange.SwipeToChange
 import java.time.LocalDate
 import java.time.Month
 import java.time.format.DateTimeFormatter
@@ -25,34 +26,48 @@ import java.time.format.TextStyle
 import java.util.*
 import androidx.compose.ui.text.TextStyle as TextStyleCompose
 
+@ExperimentalMaterialApi
 class CalendarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         setContent {
             val (dateTime, setDate) = remember { mutableStateOf(LocalDate.now()) }
 
             Column {
-                Spacer(modifier = Modifier.height(150.dp))
-                CalendarHeader(
-                    date = dateTime,
-                    onPrev = { setDate(dateTime.minusMonths(1)) },
-                    onNext = { setDate(dateTime.plusMonths(1)) }
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                CalendarMonth(date = dateTime, onClickItem = setDate)
-
-                if (dateTime != LocalDate.now()) {
-                    Button(onClick = { setDate(LocalDate.now()) }) {
-                        Text(text = "Wybierz dzisiaj")
-                    }
+                CalendarHeader(dateTime)
+                SwipeToChange(
+                    onLeft = { setDate(dateTime.minusMonths(1)) },
+                    onRight = { setDate(dateTime.plusMonths(1)) }
+                ) {
+                    CalendarMonth(date = dateTime, onClickItem = setDate)
                 }
             }
         }
+
+//        setContent {
+//            val (dateTime, setDate) = remember { mutableStateOf(LocalDate.now()) }
+//
+//            Column {
+//                Spacer(modifier = Modifier.height(150.dp))
+//                CalendarHeader(
+//                    date = dateTime,
+//                    onPrev = { setDate(dateTime.minusMonths(1)) },
+//                    onNext = { setDate(dateTime.plusMonths(1)) }
+//                )
+//
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                CalendarMonth(date = dateTime, onClickItem = setDate)
+//
+//                if (dateTime != LocalDate.now()) {
+//                    Button(onClick = { setDate(LocalDate.now()) }) {
+//                        Text(text = "Wybierz dzisiaj")
+//                    }
+//                }
+//            }
+//        }
     }
 
     @Composable
