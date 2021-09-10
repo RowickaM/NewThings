@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 
-enum class SwipeDirection {
+private enum class SwipeDirection {
     Left,
     Initial,
     Right,

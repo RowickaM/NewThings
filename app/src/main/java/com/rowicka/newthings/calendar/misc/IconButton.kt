@@ -1,4 +1,4 @@
-package com.rowicka.newthings.calendar
+package com.rowicka.newthings.calendar.misc
 
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
