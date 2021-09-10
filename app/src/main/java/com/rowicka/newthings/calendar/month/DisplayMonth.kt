@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.rowicka.newthings.calendar.AMOUNT_DAYS_IN_WEEK
+import com.rowicka.newthings.calendar.calendar.AMOUNT_DAYS_IN_WEEK
 import com.rowicka.newthings.calendar.day.DisplayDay
 import com.rowicka.newthings.calendar.day.model.Day
 import com.rowicka.newthings.calendar.day.model.DayType
@@ -18,6 +18,7 @@ import kotlin.math.abs
 
 @Composable
 fun DisplayMonth(
+    currentDate: LocalDate,
     date: LocalDate,
     onClickItem: (LocalDate) -> Unit,
     selectBackground: Color,
@@ -46,6 +47,7 @@ fun DisplayMonth(
                     monthLength = monthLength
                 ).forEach { item ->
                     DisplayDay(
+                        currentDate = currentDate,
                         date = date,
                         onClickItem = onClickItem,
                         columnWidth = columnWidth,

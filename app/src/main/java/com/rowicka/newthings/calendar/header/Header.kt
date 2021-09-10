@@ -32,8 +32,27 @@ fun Header(
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = onPrev, icon = Icons.Default.ChevronLeft)
-        DisplaySelectedDate(date = date)
+        DisplayMonth(date = date)
         IconButton(onClick = onNext, icon = Icons.Default.ChevronRight)
+    }
+}
+
+@Composable
+fun DisplayMonth(date: LocalDate) {
+    val year = date.year.toString()
+    val month = date.format(DateTimeFormatter.ofPattern("LLL", Locale.getDefault()))
+
+    Column(
+        modifier = Modifier.fillMaxWidth(0.5f),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            style = androidx.compose.ui.text.TextStyle(
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold
+            ),
+            text = "${month.upperFirst()} $year"
+        )
     }
 }
 

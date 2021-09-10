@@ -1,4 +1,4 @@
-package com.rowicka.newthings.calendar
+package com.rowicka.newthings.calendar.calendar
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +16,8 @@ const val AMOUNT_DAYS_IN_WEEK = 7
 
 @Composable
 fun Calendar(
-    date: LocalDate,
+    currentDate: LocalDate,
+    displayedDate: LocalDate,
     onClickItem: (LocalDate) -> Unit,
     selectBackground: Color = Color(191, 212, 230, 255),
     selectRoundCorner: Dp = 8.dp,
@@ -27,7 +28,7 @@ fun Calendar(
     dayStart: DayOfWeek = DayOfWeek.MONDAY,
 ) {
 
-    val firstDayOfMonth = date.withDayOfMonth(1)
+    val firstDayOfMonth = currentDate.withDayOfMonth(1)
     val offset = firstDayOfMonth.dayOfWeek.value - dayStart.value
 
 
@@ -40,7 +41,8 @@ fun Calendar(
         Spacer(modifier = Modifier.height(8.dp))
 
         DisplayMonth(
-            date = date,
+            currentDate = currentDate,
+            date = displayedDate,
             onClickItem = onClickItem,
             selectBackground = selectBackground,
             selectRoundCorner = selectRoundCorner,

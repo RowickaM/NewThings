@@ -23,6 +23,7 @@ fun DisplayDay(
     modifier: Modifier = Modifier,
     selectBackground: Color,
     selectRoundCorner: Dp,
+    currentDate: LocalDate,
     date: LocalDate,
     onClickItem: (LocalDate) -> Unit,
     columnWidth: Dp = 35.dp,
@@ -32,10 +33,11 @@ fun DisplayDay(
     item: Day,
 ) {
     val colorText = if (item.type == DayType.IN_MONTH) colorDayInMonth else colorDayOutMonth
-    val backgroundColor = if (item.type == DayType.IN_MONTH && item.value == date.dayOfMonth)
-        selectBackground
-    else
-        Color.Transparent
+    val backgroundColor =
+        if (item.type == DayType.IN_MONTH && item.value == currentDate.dayOfMonth && currentDate.month == date.month)
+            selectBackground
+        else
+            Color.Transparent
 
     Box(
         contentAlignment = Alignment.Center,

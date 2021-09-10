@@ -8,6 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import com.rowicka.newthings.calendar.calendar.Calendar
 import com.rowicka.newthings.calendar.header.Header
 import com.rowicka.newthings.calendar.swipeToChange.SwipeToChange
 import java.time.LocalDate
@@ -29,15 +30,21 @@ class CalendarActivity : AppCompatActivity() {
 @Composable
 fun CalendarComponent() {
     val (dateTime, setDate) = remember { mutableStateOf(LocalDate.now()) }
+    val (displayMonth, setDisplayMonth) = remember { mutableStateOf(LocalDate.now()) }
 
     Column {
-        Header(dateTime)
+        Header(
+            date = displayMonth,
+            onPrev = { setDisplayMonth(displayMonth.minusMonths(1)) },
+            onNext = { setDisplayMonth(displayMonth.plusMonths(1)) },
+        )
         SwipeToChange(
-            onLeft = { setDate(dateTime.minusMonths(1)) },
-            onRight = { setDate(dateTime.plusMonths(1)) }
+            onLeft = { setDisplayMonth(displayMonth.minusMonths(1)) },
+            onRight = { setDisplayMonth(displayMonth.plusMonths(1)) }
         ) {
             Calendar(
-                date = dateTime,
+                currentDate = dateTime,
+                displayedDate = displayMonth,
                 onClickItem = setDate
             )
         }

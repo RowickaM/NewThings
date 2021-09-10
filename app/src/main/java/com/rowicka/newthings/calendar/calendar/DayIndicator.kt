@@ -1,4 +1,4 @@
-package com.rowicka.newthings.calendar
+package com.rowicka.newthings.calendar.calendar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
