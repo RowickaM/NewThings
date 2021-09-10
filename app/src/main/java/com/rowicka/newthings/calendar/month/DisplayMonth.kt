@@ -20,11 +20,11 @@ import kotlin.math.abs
 fun DisplayMonth(
     currentDate: LocalDate,
     date: LocalDate,
+    listOfEvents: List<LocalDate>,
     onClickItem: (LocalDate) -> Unit,
     selectBackground: Color,
     selectRoundCorner: Dp,
     columnWidth: Dp,
-    dayHeight: Dp,
     colorDayInMonth: Color,
     colorDayOutMonth: Color,
     offset: Int,
@@ -51,15 +51,29 @@ fun DisplayMonth(
                         date = date,
                         onClickItem = onClickItem,
                         columnWidth = columnWidth,
-                        dayHeight = dayHeight,
                         colorDayInMonth = colorDayInMonth,
                         colorDayOutMonth = colorDayOutMonth,
                         item = item,
                         selectBackground = selectBackground,
-                        selectRoundCorner = selectRoundCorner
+                        selectRoundCorner = selectRoundCorner,
+                        hasEvent = hasEvent(date, item, listOfEvents)
                     )
                 }
             }
+        }
+    }
+}
+
+private fun hasEvent(displayedMonth: LocalDate, item: Day, listOfEvents: List<LocalDate>): Boolean {
+    return when (item.type) {
+        DayType.PREV_MONTH -> {
+            listOfEvents.find { it.month == displayedMonth.month.minus(1) && it.dayOfMonth == item.value } != null
+        }
+        DayType.IN_MONTH -> {
+            listOfEvents.find { it.month == displayedMonth.month && it.dayOfMonth == item.value } != null
+        }
+        DayType.NEXT_MONTH -> {
+            listOfEvents.find { it.month == displayedMonth.month.plus(1) && it.dayOfMonth == item.value } != null
         }
     }
 }
