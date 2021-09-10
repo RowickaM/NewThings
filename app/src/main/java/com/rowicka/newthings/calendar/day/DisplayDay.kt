@@ -29,6 +29,7 @@ fun DisplayDay(
     currentDate: LocalDate,
     date: LocalDate,
     onClickItem: (LocalDate) -> Unit,
+    onClickWithEvent: (LocalDate?) -> Unit,
     columnWidth: Dp = 35.dp,
     colorDayInMonth: Color = Color.Black,
     colorDayOutMonth: Color = Color.LightGray,
@@ -51,7 +52,9 @@ fun DisplayDay(
                 onClickDay(
                     item = item,
                     date = date,
-                    setDate = onClickItem
+                    onClickDay = onClickItem,
+                    hasEvent = hasEvent,
+                    onEventClick = onClickWithEvent
                 )
             },
     ) {
@@ -97,40 +100,38 @@ private fun constraintsDay() = ConstraintSet {
     }
 }
 
-private fun onClickDay(item: Day, date: LocalDate, setDate: (LocalDate) -> Unit) {
-    when (item.type) {
-        DayType.IN_MONTH -> setDateInMonth(
-            item.value,
-            date,
-            setDate
-        )
-        DayType.NEXT_MONTH -> setDateNextMonth(
-            item.value,
-            date,
-            setDate
-        )
-        DayType.PREV_MONTH -> setDatePrevMonth(
-            item.value,
-            date,
-            setDate
-        )
+private fun onClickDay(
+    hasEvent: Boolean,
+    item: Day,
+    date: LocalDate,
+    onClickDay: (LocalDate) -> Unit,
+    onEventClick: (LocalDate?) -> Unit
+) {
+    val newDate = when (item.type) {
+        DayType.IN_MONTH -> {
+            setDateInMonth(item.value, date)
+        }
+        DayType.NEXT_MONTH -> {
+            setDateNextMonth(item.value, date)
+        }
+        DayType.PREV_MONTH -> {
+            setDatePrevMonth(item.value, date)
+        }
     }
+
+    onEventClick(if (hasEvent) newDate else null)
+
+    onClickDay(newDate)
 }
 
-private fun setDateInMonth(newDay: Int, date: LocalDate, setDate: (LocalDate) -> Unit) {
-    setDate(date.withDayOfMonth(newDay))
+private fun setDateInMonth(newDay: Int, date: LocalDate): LocalDate {
+    return date.withDayOfMonth(newDay)
 }
 
-private fun setDateNextMonth(newDay: Int, date: LocalDate, setDate: (LocalDate) -> Unit) {
-    var newDate = date.plusMonths(1)
-    newDate = newDate.withDayOfMonth(newDay)
-
-    setDate(newDate)
+private fun setDateNextMonth(newDay: Int, date: LocalDate): LocalDate {
+    return date.plusMonths(1).withDayOfMonth(newDay)
 }
 
-private fun setDatePrevMonth(newDay: Int, date: LocalDate, setDate: (LocalDate) -> Unit) {
-    var newDate = date.minusMonths(1)
-    newDate = newDate.withDayOfMonth(newDay)
-
-    setDate(newDate)
+private fun setDatePrevMonth(newDay: Int, date: LocalDate): LocalDate {
+    return date.minusMonths(1).withDayOfMonth(newDay)
 }

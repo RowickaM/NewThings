@@ -1,7 +1,6 @@
 package com.rowicka.newthings.calendar
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
@@ -41,8 +40,6 @@ fun CalendarComponent() {
         LocalDate.now().minusDays(9).plusMonths(1),
     )
 
-    Log.d("MRMRMR", "$listOfEvents")
-
     Column {
         Header(
             date = displayMonth,
@@ -57,6 +54,7 @@ fun CalendarComponent() {
                 currentDate = dateTime,
                 displayedDate = displayMonth,
                 onClickItem = setDate,
+                onClickWithEvent = {},
                 listOfEvents = listOfEvents,
             )
         }

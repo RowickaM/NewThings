@@ -20,6 +20,7 @@ fun Calendar(
     displayedDate: LocalDate,
     listOfEvents: List<LocalDate>,
     onClickItem: (LocalDate) -> Unit,
+    onClickWithEvent: (LocalDate?) -> Unit,
     selectBackground: Color = Color(191, 212, 230, 255),
     selectRoundCorner: Dp = 8.dp,
     columnWidth: Dp = 35.dp,
@@ -30,7 +31,6 @@ fun Calendar(
 
     val firstDayOfMonth = currentDate.withDayOfMonth(1)
     val offset = firstDayOfMonth.dayOfWeek.value - dayStart.value
-
 
     Column {
         DayIndicator(
@@ -51,6 +51,7 @@ fun Calendar(
             colorDayInMonth = colorDayInMonth,
             colorDayOutMonth = colorDayOutMonth,
             offset = offset,
+            onClickWithEvent = onClickWithEvent
         )
     }
 }

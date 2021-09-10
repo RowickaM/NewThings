@@ -22,6 +22,7 @@ fun DisplayMonth(
     date: LocalDate,
     listOfEvents: List<LocalDate>,
     onClickItem: (LocalDate) -> Unit,
+    onClickWithEvent: (LocalDate?) -> Unit,
     selectBackground: Color,
     selectRoundCorner: Dp,
     columnWidth: Dp,
@@ -56,7 +57,8 @@ fun DisplayMonth(
                         item = item,
                         selectBackground = selectBackground,
                         selectRoundCorner = selectRoundCorner,
-                        hasEvent = hasEvent(date, item, listOfEvents)
+                        hasEvent = hasEvent(date, item, listOfEvents),
+                        onClickWithEvent = onClickWithEvent,
                     )
                 }
             }
